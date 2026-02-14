@@ -1,0 +1,15 @@
+{
+    "brandName": "Coquette Threads",
+    "tagline": "Romance, Tailored",
+    "colors": {
+        "primary": "#1a1a1a",
+        "secondary": "#f8f4ee",
+        "accent": "#d4af37",
+        "rose": "#eecbc4"
+    },
+    "fonts": {
+        "heading": "Playfair Display",
+        "body": "Inter"
+    },
+    "logoPath": "/assets/brand/logo-primary.svg"
+}
