@@ -10,12 +10,15 @@ export default function ProductCard({ product }) {
             <Link href={`/product/${slug}`}>
                 <div className="relative aspect-[3/4] overflow-hidden bg-gray-100">
                     {/* Use standard img tag for local images to avoid next/image domain config issues */}
-                    <img
-                        src={mainImage?.url || '/assets/placeholder.jpg'}
+                    <Image
+                        src={mainImage?.url || "/assets/placeholder.jpg"}
                         alt={title}
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                        loading="lazy"
+                        fill
+                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        priority={false}
                     />
+
                     {/* Quick Add Overlay */}
                     <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                         <button className="w-full bg-white/90 backdrop-blur text-black uppercase text-xs tracking-widest py-3 hover:bg-black hover:text-white transition-colors">
