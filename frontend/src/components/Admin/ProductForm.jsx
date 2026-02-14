@@ -57,8 +57,8 @@ export default function ProductForm({ existingProduct = null }) {
 
     useEffect(() => {
         if (existingProduct) {
-            setFormData({
-                ...formData,
+            setFormData(prev => ({
+                ...prev,
                 ...existingProduct,
                 categories: existingProduct.categories?.map(c => c.name).join(', ') || '',
                 tags: existingProduct.tags?.join(', ') || '',
@@ -66,7 +66,7 @@ export default function ProductForm({ existingProduct = null }) {
                 // Ensure array fields exist
                 images: existingProduct.images?.length ? existingProduct.images : [{ url: '', type: 'hero', alt: '' }],
                 variants: existingProduct.variants || []
-            });
+            }));
         }
     }, [existingProduct]);
 
@@ -369,7 +369,7 @@ export default function ProductForm({ existingProduct = null }) {
 
                         {formData.variants.length === 0 ? (
                             <div className="text-center py-12 bg-gray-50 text-gray-500 text-sm">
-                                No variants added. Click "Add Variant" to create sizes/colors.
+                                No variants added. Click &quot;Add Variant&quot; to create sizes/colors.
                             </div>
                         ) : (
                             <div className="overflow-x-auto">

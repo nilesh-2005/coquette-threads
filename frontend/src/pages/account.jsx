@@ -124,7 +124,7 @@ export default function Account() {
                         <div className="md:col-span-2">
                             <h2 className="text-xl tracking-widest uppercase text-[#1a1a1a] font-normal mb-6">Order History</h2>
                             <div className="bg-gray-50 p-12 text-center">
-                                <p className="font-sans text-sm text-gray-500 tracking-wide">You haven't placed any orders yet.</p>
+                                <p className="font-sans text-sm text-gray-500 tracking-wide">You haven&apos;t placed any orders yet.</p>
                                 <button className="mt-6 bg-black text-white px-8 py-3 rounded-full uppercase text-[10px] tracking-[0.2em] hover:bg-gray-800 transition-all">
                                     Start Shopping
                                 </button>

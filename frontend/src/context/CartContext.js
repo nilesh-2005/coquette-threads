@@ -11,7 +11,9 @@ export function CartProvider({ children }) {
         const savedCart = localStorage.getItem('cart');
         if (savedCart) {
             try {
-                setCartItems(JSON.parse(savedCart));
+                const parsed = JSON.parse(savedCart);
+                // Using a microtask to avoid synchronous state update during effect execution
+                Promise.resolve().then(() => setCartItems(parsed));
             } catch (e) {
                 console.error('Failed to parse cart', e);
             }
