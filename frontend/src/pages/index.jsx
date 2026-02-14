@@ -1,12 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
 import HeroEditorial from '@/components/HeroEditorial';
 import ProductCard from '@/components/ProductCard';
 import api from '@/lib/api';
+import { useStagger } from '@/hooks/useGsap';
 
 export default function Home() {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const gridRef = useStagger('.product-card', {
+        to: { opacity: 1, duration: 0.8, ease: 'power2.out' }, // Explicitly ensure opacity goes to 1
+        scrollTrigger: {
+            start: 'top 85%', // Start earlier
+        }
+    }, [products]);
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -44,7 +51,7 @@ export default function Home() {
                             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
                         </div>
                     ) : (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+                        <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-12">
                             {products.map((product) => (
                                 <ProductCard key={product._id} product={product} />
                             ))}

@@ -1,43 +1,39 @@
-import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { useRef } from 'react';
+import { gsap } from '@/lib/gsap';
+import { useGsap } from '@/hooks/useGsap';
 import Link from 'next/link';
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function HeroEditorial() {
     const heroRef = useRef(null);
     const textRef = useRef(null);
     const imageRef = useRef(null);
 
-    useEffect(() => {
-        const ctx = gsap.context(() => {
-            gsap.to(imageRef.current, {
-                yPercent: 30,
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: heroRef.current,
-                    start: 'top top',
-                    end: 'bottom top',
-                    scrub: true,
-                },
-            });
+    useGsap(() => {
+        // Parallax Effect
+        gsap.to(imageRef.current, {
+            yPercent: 30,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: heroRef.current,
+                start: 'top top',
+                end: 'bottom top',
+                scrub: true,
+            },
+        });
 
-            gsap.fromTo(
-                textRef.current.children,
-                { y: 50, opacity: 0 },
-                {
-                    y: 0,
-                    opacity: 1,
-                    duration: 1.5,
-                    stagger: 0.2,
-                    ease: 'power3.out',
-                    delay: 0.5,
-                }
-            );
-        }, heroRef);
-
-        return () => ctx.revert();
+        // Text Reveal
+        gsap.fromTo(
+            textRef.current.children,
+            { y: 50, opacity: 0 },
+            {
+                y: 0,
+                opacity: 1,
+                duration: 1.5,
+                stagger: 0.2,
+                ease: 'power3.out',
+                delay: 0.5,
+            }
+        );
     }, []);
 
     return (

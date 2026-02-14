@@ -10,7 +10,7 @@ const getProducts = async (req, res) => {
 
         const keyword = req.query.keyword
             ? {
-                name: {
+                title: {
                     $regex: req.query.keyword,
                     $options: 'i',
                 },
@@ -20,10 +20,19 @@ const getProducts = async (req, res) => {
         // Filter by Category
         const categoryFilter = req.query.category ? { categories: req.query.category } : {};
 
-        const count = await Product.countDocuments({ ...keyword, ...categoryFilter, published: true });
-        const products = await Product.find({ ...keyword, ...categoryFilter, published: true })
+        // If not admin, only show published products
+        const isAdmin = req.user && req.user.isAdmin;
+        const filter = { ...keyword, ...categoryFilter };
+        if (!isAdmin) {
+            filter.published = true;
+        }
+        console.log('Backend GET Products Filter:', JSON.stringify(filter), 'isAdmin:', isAdmin);
+
+        const count = await Product.countDocuments(filter);
+        const products = await Product.find(filter)
             .limit(pageSize)
-            .skip(pageSize * (page - 1));
+            .skip(pageSize * (page - 1))
+            .sort({ createdAt: -1 }); // Show newest first
 
         res.json({ products, page, pages: Math.ceil(count / pageSize) });
     } catch (error) {
@@ -83,20 +92,54 @@ const deleteProduct = async (req, res) => {
 // @route   POST /api/products
 // @access  Private/Admin
 const createProduct = async (req, res) => {
-    const product = new Product({
-        title: 'Sample Name',
-        slug: 'sample-name-' + Date.now(),
-        sku: 'SAMPLE-SKU',
-        price: 0,
-        user: req.user._id,
-        images: [{ url: '/images/sample.jpg', alt: 'Sample', type: 'hero' }],
-        description: 'Sample description',
-        variants: [],
-        published: false,
-    });
+    try {
+        console.log('Incoming product data:', req.body);
+        const { title, sku, price, description, images, variants, sizes, colors, fabric, silhouette, neckline, sleeve, embellishments, careInstructions, productionLeadTime, shippingEstimate, returnPolicy, isMadeToOrder, isLimitedEdition, published, categories } = req.body;
 
-    const createdProduct = await product.save();
-    res.status(201).json(createdProduct);
+        if (!title) {
+            return res.status(400).json({ message: 'Title is required' });
+        }
+
+        // Generate slug from title if not provided
+        const slug = req.body.slug || title.toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/(^-|-$)+/g, '') + '-' + Date.now().toString().slice(-4);
+
+        const product = new Product({
+            title,
+            slug,
+            sku,
+            price: Number(price), // Ensure price is a number
+            description,
+            images,
+            variants,
+            sizes,
+            colors: colors || [],
+            fabric,
+            silhouette,
+            neckline,
+            sleeve,
+            embellishments,
+            careInstructions,
+            productionLeadTime,
+            shippingEstimate,
+            returnPolicy,
+            isMadeToOrder,
+            isLimitedEdition,
+            published,
+            categories: categories || []
+        });
+
+        const createdProduct = await product.save();
+        console.log('Product created successfully:', createdProduct._id);
+        res.status(201).json(createdProduct);
+    } catch (error) {
+        console.error('Create product error:', error);
+        res.status(400).json({
+            message: error.message || 'Failed to create product',
+            errors: error.errors // Mongoose validation errors
+        });
+    }
 };
 
 // @desc    Update a product

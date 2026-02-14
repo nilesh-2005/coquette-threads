@@ -1,66 +1,61 @@
-import { useState } from 'react';
 import Head from 'next/head';
-import api from '@/lib/api';
 import Link from 'next/link';
+import { useAuth } from '@/context/AuthContext';
+import ProtectedRoute from '@/components/ProtectedRoute';
 
-export default function AdminDashboard() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-    const handleLogin = async (e) => {
-        e.preventDefault();
-        try {
-            const { data } = await api.post('/auth/login', { email, password });
-            localStorage.setItem('token', data.token);
-            setIsLoggedIn(true);
-        } catch (error) {
-            alert('Invalid credentials');
-        }
-    };
-
-    if (!isLoggedIn) {
-        return (
-            <div className="min-h-screen flex items-center justify-center bg-gray-100">
-                <div className="bg-white p-8 shadow-md w-full max-w-md">
-                    <h2 className="text-2xl font-serif mb-6 text-center">Admin Login</h2>
-                    <form onSubmit={handleLogin} className="space-y-4">
-                        <input
-                            type="email"
-                            placeholder="Email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="w-full border p-3 outline-none focus:border-black"
-                        />
-                        <input
-                            type="password"
-                            placeholder="Password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="w-full border p-3 outline-none focus:border-black"
-                        />
-                        <button type="submit" className="w-full bg-black text-white py-3 uppercase tracking-widest text-xs">Login</button>
-                    </form>
-                </div>
-            </div>
-        );
-    }
+function AdminDashboard() {
+    const { logout } = useAuth();
 
     return (
-        <div className="min-h-screen bg-gray-50 pt-24 px-6">
-            <Head><title>Admin Dashboard</title></Head>
-            <div className="container mx-auto">
-                <h1 className="text-3xl font-serif mb-8">Dashboard</h1>
-                <div className="bg-white p-6 shadow-sm">
-                    <p>Welcome, Admin.</p>
-                    <div className="mt-6">
-                        <Link href="/admin/products" className="text-sm border-b border-black pb-1 hover:text-gray-600">
+        <div className="min-h-screen bg-white pt-32 pb-20 px-8 md:px-16 font-serif">
+            <Head>
+                <title>Admin Dashboard | Coquette Threads</title>
+            </Head>
+            <div className="max-w-4xl mx-auto">
+                <div className="flex justify-between items-end border-b border-gray-200 pb-8 mb-12">
+                    <div>
+                        <h1 className="text-3xl tracking-widest uppercase text-[#1a1a1a] font-normal mb-2">Admin Dashboard</h1>
+                        <p className="font-sans text-sm text-gray-500 tracking-wide">Welcome back, Admin</p>
+                    </div>
+                    <div className="flex space-x-4">
+                        <button
+                            onClick={logout}
+                            className="bg-transparent border border-gray-300 text-gray-800 px-6 py-2 rounded-full uppercase text-[10px] tracking-[0.2em] hover:bg-black hover:text-white hover:border-black transition-all"
+                        >
+                            Log Out
+                        </button>
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div className="group border border-gray-100 p-12 text-center hover:border-black transition-all">
+                        <h2 className="text-xl tracking-widest uppercase text-[#1a1a1a] font-normal mb-6">Product Management</h2>
+                        <p className="font-sans text-sm text-gray-500 tracking-wide mb-8">Add, edit, or remove products from your store.</p>
+                        <Link
+                            href="/admin/products"
+                            className="inline-block bg-black text-white px-8 py-3 rounded-full uppercase text-[10px] tracking-[0.2em] hover:bg-gray-800 transition-all"
+                        >
                             Manage Products
                         </Link>
                     </div>
-                    <button className="mt-8 text-red-500 text-sm underline" onClick={() => setIsLoggedIn(false)}>Logout</button>
+
+                    <div className="group border border-gray-100 p-12 text-center hover:border-black transition-all opacity-50">
+                        <h2 className="text-xl tracking-widest uppercase text-[#1a1a1a] font-normal mb-6">Order History</h2>
+                        <p className="font-sans text-sm text-gray-500 tracking-wide mb-8">View and manage customer orders (Coming Soon).</p>
+                        <span className="inline-block border border-gray-300 text-gray-400 px-8 py-3 rounded-full uppercase text-[10px] tracking-[0.2em]">
+                            View Orders
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
+    );
+}
+
+export default function ProtectedAdminDashboard() {
+    return (
+        <ProtectedRoute adminOnly>
+            <AdminDashboard />
+        </ProtectedRoute>
     );
 }

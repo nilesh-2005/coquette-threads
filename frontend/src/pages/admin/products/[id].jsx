@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import api from '@/lib/api';
 import ProductForm from '@/components/Admin/ProductForm';
+import AdminRoute from '@/components/Admin/AdminRoute';
 
 export default function EditProduct() {
     const router = useRouter();
@@ -25,12 +26,14 @@ export default function EditProduct() {
     if (!product) return <div>Loading...</div>;
 
     return (
-        <div className="min-h-screen bg-gray-50 pt-24 px-6">
-            <Head><title>Edit Product</title></Head>
-            <div className="container mx-auto">
-                <h1 className="text-3xl font-serif mb-8">Edit Product</h1>
-                <ProductForm existingProduct={product} />
+        <AdminRoute>
+            <div className="min-h-screen bg-gray-50 pt-24 px-6">
+                <Head><title>Edit Product</title></Head>
+                <div className="container mx-auto">
+                    <h1 className="text-3xl font-serif mb-8">Edit Product</h1>
+                    <ProductForm existingProduct={product} />
+                </div>
             </div>
-        </div>
+        </AdminRoute>
     );
 }
