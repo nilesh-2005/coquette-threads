@@ -4,27 +4,16 @@ import { useRouter } from 'next/router';
 
 export default function ProductForm({ existingProduct = null }) {
     const router = useRouter();
-    const [formData, setFormData] = useState({
-        title: '',
-        price: '',
-        description: '',
-        sku: '',
-        category: '',
-        images: '', // comma separated for now
-    });
+    const [formData, setFormData] = useState(() => ({
+        title: existingProduct?.title || '',
+        price: existingProduct?.price || '',
+        description: existingProduct?.description || '',
+        sku: existingProduct?.sku || '',
+        category: existingProduct?.categories?.[0]?.name || '',
+        images: existingProduct?.images?.map(i => i.url).join(', ') || '',
+    }));
 
-    useEffect(() => {
-        if (existingProduct) {
-            setFormData({
-                title: existingProduct.title,
-                price: existingProduct.price,
-                description: existingProduct.description,
-                sku: existingProduct.sku,
-                category: existingProduct.categories?.[0]?.name || '',
-                images: existingProduct.images?.map(i => i.url).join(', ') || ''
-            });
-        }
-    }, [existingProduct]);
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
