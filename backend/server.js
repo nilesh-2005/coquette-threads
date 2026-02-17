@@ -34,12 +34,17 @@ app.get('/', (req, res) => {
 const productRoutes = require('./src/routes/productRoutes');
 const authRoutes = require('./src/routes/authRoutes');
 const uploadRoutes = require('./src/routes/uploadRoutes');
+const { notFound, errorHandler } = require('./src/middlewares/errorMiddleware');
 
 app.use('/api/products', productRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/orders', require('./src/routes/orderRoutes'));
 app.use('/api/categories', require('./src/routes/categoryRoutes'));
+
+// Error Middleware
+app.use(notFound);
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
