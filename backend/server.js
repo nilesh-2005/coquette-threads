@@ -36,24 +36,25 @@ const connectDB = async () => {
     const conn = await mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/coquette_threads', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      serverSelectionTimeoutMS: 5000,
+      serverSelectionTimeoutMS: 10000, // Wait up to 10s for initial selection
       connectTimeoutMS: 10000,
     });
     console.log(`MongoDB Connected: ${conn.connection.host}`);
+    return true;
   } catch (err) {
-    console.error(`Error: ${err.message}`);
-    // Don't exit here, let Mongoose retry if possible, or handle via middleware
+    console.error('CRITICAL: MongoDB connection failed!');
+    console.error(`Error Message: ${err.message}`);
+    console.error('Stack Trace:', err.stack);
+    return false;
   }
 };
 
-connectDB();
-
 mongoose.connection.on('error', err => {
-  console.error('Mongoose connection error:', err);
+  console.error('Mongoose runtime error:', err);
 });
 
 mongoose.connection.on('disconnected', () => {
-  console.warn('Mongoose disconnected. Attempting to reconnect...');
+  console.warn('Mongoose disconnected. Reconnection will be handled by Mongoose.');
 });
 
 // Routes (Placeholder)
@@ -78,8 +79,19 @@ app.use('/api/categories', require('./src/routes/categoryRoutes'));
 app.use(notFound);
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 5000;
+// Start Server Function
+const startServer = async () => {
+  const dbConnected = await connectDB();
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+  if (!dbConnected && process.env.NODE_ENV === 'production') {
+    console.error('Failed to connect to database in production. Exiting.');
+    process.exit(1);
+  }
+
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
+  });
+};
+
+startServer();
