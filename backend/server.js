@@ -8,6 +8,18 @@ dotenv.config({ path: path.join(__dirname, '../.env') }); // Load from root or l
 
 mongoose.set('bufferCommands', false);
 
+// Health Check Log
+console.log('--- Server Starting ---');
+console.log('PORT:', process.env.PORT || 5000);
+console.log('NODE_ENV:', process.env.NODE_ENV);
+console.log('MONGO_URI exists:', !!process.env.MONGO_URI);
+if (process.env.MONGO_URI) {
+  const maskedUri = process.env.MONGO_URI.replace(/:([^@]+)@/, ':****@');
+  console.log('MONGO_URI (masked):', maskedUri);
+} else {
+  console.warn('WARNING: MONGO_URI is not defined! Using local default.');
+}
+
 const app = express();
 
 // Middleware
@@ -57,6 +69,7 @@ const { notFound, errorHandler } = require('./src/middlewares/errorMiddleware');
 
 app.use('/api/products', productRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/health', (req, res) => res.json({ status: 'healthy', timestamp: new Date() }));
 app.use('/api/upload', uploadRoutes);
 app.use('/api/orders', require('./src/routes/orderRoutes'));
 app.use('/api/categories', require('./src/routes/categoryRoutes'));
