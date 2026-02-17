@@ -4,34 +4,23 @@ const products = [
         slug: "antique-gold-classic-victorian-gown",
         sku: "CT-1001",
         shortDescription: "Off-shoulder antique gold satin gown with intricate lace-trimmed bodice and brocade panel skirt.",
-        description: "<p>A breathtaking recreation of Victorian grandeur, this antique gold satin gown features a structured off-shoulder bodice adorned with zigzag lace trim detailing. The fitted waist flows into a voluminous gathered skirt with a contrasting brocade front panel. Ruched puff cap sleeves in matching brocade fabric complete the period-authentic silhouette. Every stitch whispers of candlelit ballrooms and aristocratic elegance.</p>",
+        description: "<p>A breathtaking recreation of Victorian grandeur, this antique gold satin gown features a structured off-shoulder bodice adorned with zigzag lace trim detailing. The fitted waist flows into a voluminous gathered skirt with a contrasting brocade front panel. Every stitch whispers of candlelit ballrooms and aristocratic elegance.</p>",
         price: 19500,
         currency: "INR",
-        categories: [],
+        categories: ["new-arrivals", "ball-gowns"],
         tags: ["gold", "satin", "lace", "victorian", "off-shoulder", "brocade"],
-        images: [
-            { url: "/assets/gowns/antique-gold-classic-victorian-gown/antique-gold-classic-victorian-gown-wh.png", alt: "Antique Gold Classic Victorian Gown — front view on white background", type: "hero" },
-            { url: "/assets/gowns/antique-gold-classic-victorian-gown/antique-gold-classic-victorian-gown.jpg", alt: "Antique Gold Classic Victorian Gown — styled editorial shot", type: "zoom" }
-        ],
-        variants: [
-            { sku: "CT-1001-XS-AG", size: "XS", color: "Antique Gold", fabric: "Silk Satin & Brocade", inventoryQty: 2 },
-            { sku: "CT-1001-S-AG", size: "S", color: "Antique Gold", fabric: "Silk Satin & Brocade", inventoryQty: 3 },
-            { sku: "CT-1001-M-AG", size: "M", color: "Antique Gold", fabric: "Silk Satin & Brocade", inventoryQty: 2 },
-            { sku: "CT-1001-L-AG", size: "L", color: "Antique Gold", fabric: "Silk Satin & Brocade", inventoryQty: 1 }
-        ],
-        sizes: ["XS", "S", "M", "L"],
-        colors: [{ name: "Antique Gold", hex: "#c5a44e" }],
+        images: [{ url: "/assets/gowns/antique-gold-classic-victorian-gown/antique-gold-classic-victorian-gown-wh.png", alt: "Antique Gold Classic Victorian Gown", type: "hero" }],
         fabric: "Silk Satin & Brocade",
         silhouette: "Ball Gown",
         neckline: "Off-shoulder",
         sleeve: "Puff cap sleeve",
-        embellishments: ["lace trim", "brocade panel", "zigzag stitching"],
-        careInstructions: "Dry clean only. Store hanging in garment bag.",
-        productionLeadTime: "4–6 weeks",
-        measurements: {
-            bust: { XS: 82, S: 86, M: 90, L: 94 },
-            waist: { XS: 62, S: 66, M: 70, L: 74 }
-        },
+        sizes: ["XS", "S", "M", "L"],
+        variants: [
+            { sku: "CT-1001-XS", size: "XS", inventoryQty: 5 },
+            { sku: "CT-1001-S", size: "S", inventoryQty: 8 },
+            { sku: "CT-1001-M", size: "M", inventoryQty: 6 },
+            { sku: "CT-1001-L", size: "L", inventoryQty: 4 }
+        ],
         isMadeToOrder: true,
         published: true
     },
@@ -43,31 +32,20 @@ const products = [
         description: "<p>Step into a Bridgerton fantasy with this exquisite blush pink Regency gown. The empire waist bodice is lavishly embroidered with hand-placed freshwater pearls and delicate floral beadwork at the scoop neckline. Dreamy puff sleeves in embroidered tulle float above matching elbow-length opera gloves. The flowing skirt features all-over floral vine embroidery on soft tulle over a blush satin lining. A jewelled brooch accents the ribbon waistband.</p>",
         price: 22500,
         currency: "INR",
-        categories: [],
+        categories: ["new-arrivals"],
         tags: ["pink", "blush", "pearl", "embroidered", "regency", "bridgerton", "puff-sleeve"],
-        images: [
-            { url: "/assets/gowns/blush-pink-regency-embroidered-gown/blush-pink-regency-embroidered-gown-wh.png", alt: "Blush Pink Regency Embroidered Gown — front view on white background", type: "hero" },
-            { url: "/assets/gowns/blush-pink-regency-embroidered-gown/blush-pink-regency-embroidered-gown.jpeg", alt: "Blush Pink Regency Embroidered Gown — styled editorial shot", type: "zoom" }
-        ],
-        variants: [
-            { sku: "CT-1002-XS-BP", size: "XS", color: "Blush Pink", fabric: "Embroidered Tulle over Satin", inventoryQty: 2 },
-            { sku: "CT-1002-S-BP", size: "S", color: "Blush Pink", fabric: "Embroidered Tulle over Satin", inventoryQty: 3 },
-            { sku: "CT-1002-M-BP", size: "M", color: "Blush Pink", fabric: "Embroidered Tulle over Satin", inventoryQty: 2 },
-            { sku: "CT-1002-L-BP", size: "L", color: "Blush Pink", fabric: "Embroidered Tulle over Satin", inventoryQty: 2 }
-        ],
-        sizes: ["XS", "S", "M", "L"],
-        colors: [{ name: "Blush Pink", hex: "#e8b4b8" }],
+        images: [{ url: "/assets/gowns/blush-pink-regency-embroidered-gown/blush-pink-regency-embroidered-gown-wh.png", alt: "Blush Pink Regency Embroidered Gown", type: "hero" }],
         fabric: "Embroidered Tulle over Satin",
         silhouette: "Empire Waist A-Line",
         neckline: "Scoop with pearl embroidery",
         sleeve: "Puff sleeve",
-        embellishments: ["freshwater pearls", "floral beadwork", "jewelled brooch", "ribbon waistband"],
-        careInstructions: "Dry clean only. Matching gloves included.",
-        productionLeadTime: "5–7 weeks",
-        measurements: {
-            bust: { XS: 80, S: 84, M: 88, L: 92 },
-            waist: { XS: 64, S: 68, M: 72, L: 76 }
-        },
+        sizes: ["XS", "S", "M", "L"],
+        variants: [
+            { sku: "CT-1002-XS", size: "XS", inventoryQty: 3 },
+            { sku: "CT-1002-S", size: "S", inventoryQty: 4 },
+            { sku: "CT-1002-M", size: "M", inventoryQty: 5 },
+            { sku: "CT-1002-L", size: "L", inventoryQty: 2 }
+        ],
         isMadeToOrder: true,
         published: true
     },
@@ -79,103 +57,20 @@ const products = [
         description: "<p>Channel the opulence of the 1920s with this Art Deco champagne evening gown. The fitted column silhouette is covered entirely in geometric beadwork — cascading scalloped arches and feather-like motifs in silver and gold micro-beads over nude tulle. Delicate cap sleeves frame the shoulders while the gown skims the body with timeless sophistication. A true showpiece for galas, award nights, and red-carpet moments.</p>",
         price: 24500,
         currency: "INR",
-        categories: [],
+        categories: ["new-arrivals"],
         tags: ["champagne", "beaded", "art-deco", "vintage", "column", "gatsby"],
-        images: [
-            { url: "/assets/gowns/champagne-beaded-vintage-evening-gown/champagne-beaded-vintage-evening-gown-wh.png", alt: "Champagne Beaded Vintage Evening Gown — front view on white background", type: "hero" },
-            { url: "/assets/gowns/champagne-beaded-vintage-evening-gown/champagne-beaded-vintage-evening-gown.jpeg", alt: "Champagne Beaded Vintage Evening Gown — styled editorial shot", type: "zoom" }
-        ],
-        variants: [
-            { sku: "CT-1003-XS-CH", size: "XS", color: "Champagne", fabric: "Beaded Tulle over Nude Lining", inventoryQty: 1 },
-            { sku: "CT-1003-S-CH", size: "S", color: "Champagne", fabric: "Beaded Tulle over Nude Lining", inventoryQty: 2 },
-            { sku: "CT-1003-M-CH", size: "M", color: "Champagne", fabric: "Beaded Tulle over Nude Lining", inventoryQty: 2 },
-            { sku: "CT-1003-L-CH", size: "L", color: "Champagne", fabric: "Beaded Tulle over Nude Lining", inventoryQty: 1 }
-        ],
-        sizes: ["XS", "S", "M", "L"],
-        colors: [{ name: "Champagne", hex: "#d4b896" }],
+        images: [{ url: "/assets/gowns/champagne-beaded-vintage-evening-gown/champagne-beaded-vintage-evening-gown-wh.png", alt: "Champagne Beaded Vintage Evening Gown", type: "hero" }],
         fabric: "Beaded Tulle over Nude Lining",
         silhouette: "Column / Sheath",
         neckline: "Scoop",
         sleeve: "Cap sleeve",
-        embellishments: ["geometric beadwork", "scalloped arches", "micro-bead feather motifs"],
-        careInstructions: "Professional dry clean only. Handle with extreme care.",
-        productionLeadTime: "6–8 weeks",
-        measurements: {
-            bust: { XS: 80, S: 84, M: 88, L: 92 },
-            waist: { XS: 60, S: 64, M: 68, L: 72 }
-        },
-        isMadeToOrder: true,
-        published: true
-    },
-    {
-        title: "Ivory Floral Empire Waist Gown",
-        slug: "ivory-floral-empire-waist-gown",
-        sku: "CT-1004",
-        shortDescription: "Ivory tulle Regency gown with stunning silver floral appliqué, puff sleeves, and matching opera gloves.",
-        description: "<p>A masterwork of neo-Regency couture, this ivory empire waist gown features cascading silver floral appliqué layered across the entire length of the tulle skirt. The scoop-neck bodice is delicately embroidered with matching floral motifs, with sheer puff sleeves lending an ethereal softness. White satin opera gloves accompany the piece. Oversized three-dimensional flower bursts at the hem create a dramatic snowflake-like effect, making every step a visual poem.</p>",
-        price: 26500,
-        currency: "INR",
-        categories: [],
-        tags: ["ivory", "floral", "applique", "silver", "empire-waist", "regency", "bridal"],
-        images: [
-            { url: "/assets/gowns/ivory-floral-empire-waist-gown/ivory-floral-empire-waist-gown-wh.png", alt: "Ivory Floral Empire Waist Gown — front view on white background", type: "hero" },
-            { url: "/assets/gowns/ivory-floral-empire-waist-gown/ivory-floral-empire-waist-gown.jpeg", alt: "Ivory Floral Empire Waist Gown — styled editorial shot", type: "zoom" }
-        ],
-        variants: [
-            { sku: "CT-1004-XS-IV", size: "XS", color: "Ivory", fabric: "Tulle with Floral Appliqué", inventoryQty: 2 },
-            { sku: "CT-1004-S-IV", size: "S", color: "Ivory", fabric: "Tulle with Floral Appliqué", inventoryQty: 2 },
-            { sku: "CT-1004-M-IV", size: "M", color: "Ivory", fabric: "Tulle with Floral Appliqué", inventoryQty: 3 },
-            { sku: "CT-1004-L-IV", size: "L", color: "Ivory", fabric: "Tulle with Floral Appliqué", inventoryQty: 1 }
-        ],
         sizes: ["XS", "S", "M", "L"],
-        colors: [{ name: "Ivory", hex: "#f8f4ee" }],
-        fabric: "Tulle with Silver Floral Appliqué",
-        silhouette: "Empire Waist A-Line",
-        neckline: "Scoop",
-        sleeve: "Sheer puff sleeve",
-        embellishments: ["silver floral appliqué", "3D flower bursts", "vine embroidery"],
-        careInstructions: "Dry clean only. Opera gloves included.",
-        productionLeadTime: "6–8 weeks",
-        measurements: {
-            bust: { XS: 80, S: 84, M: 88, L: 92 },
-            waist: { XS: 62, S: 66, M: 70, L: 74 }
-        },
-        isMadeToOrder: true,
-        published: true
-    },
-    {
-        title: "Ivory Royal Lace Ballroom Gown",
-        slug: "ivory-royal-lace-ballroom-gown",
-        sku: "CT-1005",
-        shortDescription: "Ivory A-line ballroom gown with gold baroque lace overlay, sheer bell sleeves, and a cathedral-length train.",
-        description: "<p>Fit for royalty, this ivory gown is enveloped in gold baroque lace appliqué from neckline to hem. The structured bodice features a square neckline with scalloped gold lace trim, while floor-sweeping sheer bell sleeves cascade in layers of gossamer tulle. The full A-line skirt flows into a dramatic train adorned with scrollwork and filigree lace motifs. Tiny sequins are scattered throughout, catching light with every movement.</p>",
-        price: 29500,
-        currency: "INR",
-        categories: [],
-        tags: ["ivory", "gold", "lace", "baroque", "bell-sleeve", "train", "bridal"],
-        images: [
-            { url: "/assets/gowns/ivory-royal-lace-ballroom-gown/ivory-royal-lace-ballroom-gown-wh.png", alt: "Ivory Royal Lace Ballroom Gown — front view on white background", type: "hero" },
-            { url: "/assets/gowns/ivory-royal-lace-ballroom-gown/ivory-royal-lace-ballroom-gown.jpeg", alt: "Ivory Royal Lace Ballroom Gown — styled editorial shot", type: "zoom" }
-        ],
         variants: [
-            { sku: "CT-1005-XS-IL", size: "XS", color: "Ivory & Gold", fabric: "Tulle with Baroque Lace", inventoryQty: 1 },
-            { sku: "CT-1005-S-IL", size: "S", color: "Ivory & Gold", fabric: "Tulle with Baroque Lace", inventoryQty: 2 },
-            { sku: "CT-1005-M-IL", size: "M", color: "Ivory & Gold", fabric: "Tulle with Baroque Lace", inventoryQty: 2 },
-            { sku: "CT-1005-L-IL", size: "L", color: "Ivory & Gold", fabric: "Tulle with Baroque Lace", inventoryQty: 1 }
+            { sku: "CT-1003-XS", size: "XS", inventoryQty: 2 },
+            { sku: "CT-1003-S", size: "S", inventoryQty: 3 },
+            { sku: "CT-1003-M", size: "M", inventoryQty: 3 },
+            { sku: "CT-1003-L", size: "L", inventoryQty: 2 }
         ],
-        sizes: ["XS", "S", "M", "L"],
-        colors: [{ name: "Ivory & Gold", hex: "#f5ead6" }],
-        fabric: "Tulle with Baroque Lace Overlay",
-        silhouette: "A-Line with Train",
-        neckline: "Square with lace trim",
-        sleeve: "Sheer bell sleeve",
-        embellishments: ["baroque lace appliqué", "scrollwork", "filigree motifs", "scattered sequins"],
-        careInstructions: "Professional dry clean only. Store flat.",
-        productionLeadTime: "6–8 weeks",
-        measurements: {
-            bust: { XS: 82, S: 86, M: 90, L: 94 },
-            waist: { XS: 62, S: 66, M: 70, L: 74 }
-        },
         isMadeToOrder: true,
         published: true
     },
@@ -187,31 +82,20 @@ const products = [
         description: "<p>A daring fusion of modern sculpture and historical elegance. This midnight blue evening gown features dramatic asymmetric draping that wraps the body like a Grecian statue, revealing an inner bodice panel of burnished gold satin. Silver lace appliqué trails across the drape and hem like frost on stone. The structured shoulder line and bias-cut draping create a powerful, architectural silhouette that commands every room.</p>",
         price: 23500,
         currency: "INR",
-        categories: [],
+        categories: ["new-arrivals"],
         tags: ["blue", "midnight", "draped", "gold", "asymmetric", "designer", "lace"],
-        images: [
-            { url: "/assets/gowns/midnight-blue-draped-designer-evening-gown/midnight-blue-draped-designer-evening-gown-wh.png", alt: "Midnight Blue Draped Designer Evening Gown — front view on white background", type: "hero" },
-            { url: "/assets/gowns/midnight-blue-draped-designer-evening-gown/midnight-blue-draped-designer-evening-gown.jpeg", alt: "Midnight Blue Draped Designer Evening Gown — styled editorial shot", type: "zoom" }
-        ],
-        variants: [
-            { sku: "CT-1006-XS-MB", size: "XS", color: "Midnight Blue & Gold", fabric: "Silk Chiffon & Satin", inventoryQty: 2 },
-            { sku: "CT-1006-S-MB", size: "S", color: "Midnight Blue & Gold", fabric: "Silk Chiffon & Satin", inventoryQty: 2 },
-            { sku: "CT-1006-M-MB", size: "M", color: "Midnight Blue & Gold", fabric: "Silk Chiffon & Satin", inventoryQty: 3 },
-            { sku: "CT-1006-L-MB", size: "L", color: "Midnight Blue & Gold", fabric: "Silk Chiffon & Satin", inventoryQty: 1 }
-        ],
-        sizes: ["XS", "S", "M", "L"],
-        colors: [{ name: "Midnight Blue", hex: "#1a1a5e" }, { name: "Gold", hex: "#b8860b" }],
+        images: [{ url: "/assets/gowns/midnight-blue-draped-designer-evening-gown/midnight-blue-draped-designer-evening-gown-wh.png", alt: "Midnight Blue Draped Designer Evening Gown", type: "hero" }],
         fabric: "Silk Chiffon & Satin",
         silhouette: "Draped Column",
         neckline: "Asymmetric",
         sleeve: "Cap shoulder",
-        embellishments: ["silver lace appliqué", "architectural draping", "exposed inner panel"],
-        careInstructions: "Dry clean only.",
-        productionLeadTime: "4–6 weeks",
-        measurements: {
-            bust: { XS: 80, S: 84, M: 88, L: 92 },
-            waist: { XS: 62, S: 66, M: 70, L: 74 }
-        },
+        sizes: ["XS", "S", "M", "L"],
+        variants: [
+            { sku: "CT-1006-XS", size: "XS", inventoryQty: 4 },
+            { sku: "CT-1006-S", size: "S", inventoryQty: 5 },
+            { sku: "CT-1006-M", size: "M", inventoryQty: 4 },
+            { sku: "CT-1006-L", size: "L", inventoryQty: 3 }
+        ],
         isMadeToOrder: true,
         published: true
     },
@@ -223,107 +107,274 @@ const products = [
         description: "<p>Dark romance incarnate. This floor-length navy velvet gown features a sweetheart neckline with ruched detailing, crowned by a dazzling sapphire crystal and rhinestone brooch at the centre décolletage. Full-length velvet sleeves terminate in dramatic pointed lace bell cuffs that trail like midnight shadows. The A-line skirt falls in rich, heavy folds of plush velvet. Rhinestone and crystal beadwork traces the neckline like frozen starlight.</p>",
         price: 27500,
         currency: "INR",
-        categories: [],
+        categories: ["new-arrivals"],
         tags: ["navy", "velvet", "gothic", "sapphire", "crystal", "bell-sleeve", "dark-romance"],
-        images: [
-            { url: "/assets/gowns/navy-velvet-gothic-evening-gown/navy-velvet-gothic-evening-gown-wh.png", alt: "Navy Velvet Gothic Evening Gown — front view on white background", type: "hero" },
-            { url: "/assets/gowns/navy-velvet-gothic-evening-gown/navy-velvet-gothic-evening-gown.jpeg", alt: "Navy Velvet Gothic Evening Gown — styled editorial shot", type: "zoom" }
-        ],
-        variants: [
-            { sku: "CT-1007-XS-NV", size: "XS", color: "Navy", fabric: "Silk Velvet & Lace", inventoryQty: 2 },
-            { sku: "CT-1007-S-NV", size: "S", color: "Navy", fabric: "Silk Velvet & Lace", inventoryQty: 3 },
-            { sku: "CT-1007-M-NV", size: "M", color: "Navy", fabric: "Silk Velvet & Lace", inventoryQty: 2 },
-            { sku: "CT-1007-L-NV", size: "L", color: "Navy", fabric: "Silk Velvet & Lace", inventoryQty: 1 }
-        ],
-        sizes: ["XS", "S", "M", "L"],
-        colors: [{ name: "Navy", hex: "#0a0a3c" }],
+        images: [{ url: "/assets/gowns/navy-velvet-gothic-evening-gown/navy-velvet-gothic-evening-gown-wh.png", alt: "Navy Velvet Gothic Evening Gown", type: "hero" }],
         fabric: "Silk Velvet & Chantilly Lace",
         silhouette: "A-Line",
         neckline: "Sweetheart with rhinestone trim",
         sleeve: "Long with lace bell cuff",
-        embellishments: ["sapphire crystal brooch", "rhinestone beading", "lace bell cuffs"],
-        careInstructions: "Dry clean only. Avoid direct sunlight to preserve velvet nap.",
-        productionLeadTime: "5–7 weeks",
-        measurements: {
-            bust: { XS: 82, S: 86, M: 90, L: 94 },
-            waist: { XS: 62, S: 66, M: 70, L: 74 }
-        },
-        isMadeToOrder: true,
-        published: true
-    },
-    {
-        title: "Royal Gold Satin Ballroom Evening Gown",
-        slug: "royal-gold-satin-ballroom-evening-gown",
-        sku: "CT-1008",
-        shortDescription: "Ivory pearl-encrusted satin mermaid gown with sweetheart neckline and dramatic ruched bodice.",
-        description: "<p>Pure refined glamour. This ivory satin mermaid gown is sculpted to perfection with elegant ruching from bodice to hem, creating a fluid, figure-flattering silhouette. Wide shoulder straps encrusted with rows of hand-stitched freshwater pearls frame the sweetheart neckline. The gown flows into a graceful trumpet flare at the base, finishing with a pooling train. Every element speaks to masterful drapery and timeless bridal sophistication.</p>",
-        price: 20500,
-        currency: "INR",
-        categories: [],
-        tags: ["ivory", "satin", "pearl", "ruched", "mermaid", "sweetheart", "bridal"],
-        images: [
-            { url: "/assets/gowns/royal-gold-satin-ballroom-evening-gown.jpg/royal-gold-satin-ballroom-evening-gown-wh.png", alt: "Royal Gold Satin Ballroom Evening Gown — front view on white background", type: "hero" },
-            { url: "/assets/gowns/royal-gold-satin-ballroom-evening-gown.jpg/royal-gold-satin-ballroom-evening-gown.jpeg", alt: "Royal Gold Satin Ballroom Evening Gown — styled editorial shot", type: "zoom" }
-        ],
-        variants: [
-            { sku: "CT-1008-XS-IV", size: "XS", color: "Ivory", fabric: "Duchess Satin", inventoryQty: 2 },
-            { sku: "CT-1008-S-IV", size: "S", color: "Ivory", fabric: "Duchess Satin", inventoryQty: 3 },
-            { sku: "CT-1008-M-IV", size: "M", color: "Ivory", fabric: "Duchess Satin", inventoryQty: 2 },
-            { sku: "CT-1008-L-IV", size: "L", color: "Ivory", fabric: "Duchess Satin", inventoryQty: 1 }
-        ],
         sizes: ["XS", "S", "M", "L"],
-        colors: [{ name: "Ivory", hex: "#f5f0e1" }],
-        fabric: "Duchess Satin",
-        silhouette: "Mermaid / Trumpet",
-        neckline: "Sweetheart with pearl straps",
-        sleeve: "Sleeveless (wide pearl straps)",
-        embellishments: ["freshwater pearl straps", "ruching", "trumpet hem"],
-        careInstructions: "Dry clean only.",
-        productionLeadTime: "4–6 weeks",
-        measurements: {
-            bust: { XS: 80, S: 84, M: 88, L: 92 },
-            waist: { XS: 60, S: 64, M: 68, L: 72 }
-        },
+        variants: [
+            { sku: "CT-1007-XS", size: "XS", inventoryQty: 2 },
+            { sku: "CT-1007-S", size: "S", inventoryQty: 4 },
+            { sku: "CT-1007-M", size: "M", inventoryQty: 4 },
+            { sku: "CT-1007-L", size: "L", inventoryQty: 2 }
+        ],
         isMadeToOrder: true,
         published: true
     },
     {
-        title: "Silver Embroidered Princess Net Evening Gown",
-        slug: "silver-embroidered-princess-net-evening-gown",
+        title: "Silver Royal Ball Gown",
+        slug: "silver-royal-ball-gown-classic",
         sku: "CT-1009",
         shortDescription: "Ethereal silver and gold beaded net ball gown with cap sleeves over a blush satin underlayer.",
         description: "<p>A fairytale brought to life. This showstopping princess ball gown features layer upon layer of silver and gold beaded net overlay on a blush satin base. The square-neck bodice is adorned with intricate scrollwork beading in silver, gold, and champagne tones, while cap sleeves delicately frame the shoulders. The full A-line skirt explodes in a symphony of baroque floral beadwork that catches every flicker of light. Designed for those who dare to be the centrepiece of any occasion.</p>",
         price: 28500,
         currency: "INR",
-        categories: [],
+        categories: ["new-arrivals", "ball-gowns"],
         tags: ["silver", "gold", "beaded", "net", "princess", "ball-gown", "cap-sleeve"],
-        images: [
-            { url: "/assets/gowns/silver-embroidered-princess-net-evening-gown/silver-embroidered-princess-net-evening-gown-wh.png", alt: "Silver Embroidered Princess Net Evening Gown — front view on white background", type: "hero" },
-            { url: "/assets/gowns/silver-embroidered-princess-net-evening-gown/silver-embroidered-princess-net-evening-gown.jpeg", alt: "Silver Embroidered Princess Net Evening Gown — styled editorial shot", type: "zoom" }
-        ],
-        variants: [
-            { sku: "CT-1009-XS-SL", size: "XS", color: "Silver & Blush", fabric: "Beaded Net over Satin", inventoryQty: 1 },
-            { sku: "CT-1009-S-SL", size: "S", color: "Silver & Blush", fabric: "Beaded Net over Satin", inventoryQty: 2 },
-            { sku: "CT-1009-M-SL", size: "M", color: "Silver & Blush", fabric: "Beaded Net over Satin", inventoryQty: 2 },
-            { sku: "CT-1009-L-SL", size: "L", color: "Silver & Blush", fabric: "Beaded Net over Satin", inventoryQty: 1 }
-        ],
-        sizes: ["XS", "S", "M", "L"],
-        colors: [{ name: "Silver & Blush", hex: "#c0b8a8" }],
+        images: [{ url: "/assets/gowns/silver-embroidered-princess-net-evening-gown/silver-embroidered-princess-net-evening-gown-wh.png", alt: "Silver Royal Ball Gown", type: "hero" }],
         fabric: "Beaded Net over Satin",
         silhouette: "Ball Gown",
         neckline: "Square",
         sleeve: "Cap sleeve",
-        embellishments: ["silver & gold beadwork", "baroque scrollwork", "sequin overlay"],
-        careInstructions: "Professional dry clean only. Handle with extreme care.",
-        productionLeadTime: "8–10 weeks",
-        measurements: {
-            bust: { XS: 82, S: 86, M: 90, L: 94 },
-            waist: { XS: 62, S: 66, M: 70, L: 74 }
-        },
+        sizes: ["XS", "S", "M", "L"],
+        variants: [
+            { sku: "CT-1009-XS", size: "XS", inventoryQty: 3 },
+            { sku: "CT-1009-S", size: "S", inventoryQty: 5 },
+            { sku: "CT-1009-M", size: "M", inventoryQty: 4 },
+            { sku: "CT-1009-L", size: "L", inventoryQty: 2 }
+        ],
+        isMadeToOrder: true,
+        published: true
+    },
+    // BRIDAL COLLECTION
+    {
+        title: "Classical Off-Shoulder Bridal Gown",
+        slug: "classical-off-shoulder-bridal-gown",
+        sku: "CT-BR-1001",
+        shortDescription: "Timeless off-shoulder satin gown with a structured bodice and elegant train.",
+        description: "<p>A vision of classic romance, this off-shoulder bridal gown is crafted from premium heavy satin. The structured bodice features a delicate sweetheart neckline and elegant draping that flows into a voluminous pleated skirt. A hidden corset provides perfect support, while the cathedral-length train adds a dramatic finish to this timeless silhouette. Perfect for the bride seeking understated grandeur.</p>",
+        price: 45000,
+        currency: "INR",
+        categories: ["new-arrivals", "bridal"],
+        tags: ["white", "satin", "off-shoulder", "classic", "minimalist", "bridal"],
+        images: [{ url: "/assets/bridal-gowns/classic-offshoulder-bridal.png", alt: "Classical Off-Shoulder Bridal Gown", type: "hero" }],
+        fabric: "Heavy Duchess Satin",
+        silhouette: "Ball Gown",
+        neckline: "Off-shoulder Sweetheart",
+        sleeve: "Sleeveless / Dropped Straps",
+        sizes: ["XS", "S", "M", "L"],
+        variants: [
+            { sku: "CT-BR-1001-XS", size: "XS", inventoryQty: 2 },
+            { sku: "CT-BR-1001-S", size: "S", inventoryQty: 3 },
+            { sku: "CT-BR-1001-M", size: "M", inventoryQty: 3 },
+            { sku: "CT-BR-1001-L", size: "L", inventoryQty: 2 }
+        ],
+        isMadeToOrder: true,
+        published: true
+    },
+    {
+        title: "Black Swan Gothic Bridal Gown",
+        slug: "black-swan-gothic-bridal-gown",
+        sku: "CT-BR-1002",
+        shortDescription: "Dramatic black lace and tulle gown for the non-traditional, avant-garde bride.",
+        description: "<p>Compelling and mysterious, the Black Swan gown redefines bridal elegance. Layers of midnight black French lace and pleated tulle create a multi-dimensional silhouette with dark romantic appeal. The sheer bodice features intricate vine embroidery and hand-sewn crystals, while the voluminous tiered skirt creates movement with every step. A masterpiece for the gothic-inspired or high-fashion wedding.</p>",
+        price: 52000,
+        currency: "INR",
+        categories: ["new-arrivals", "bridal"],
+        tags: ["black", "gothic", "lace", "tulle", "avant-garde", "bridal"],
+        images: [{ url: "/assets/bridal-gowns/black-swan-gothic-bridal.png", alt: "Black Swan Gothic Bridal Gown", type: "hero" }],
+        fabric: "French Lace & Italian Tulle",
+        silhouette: "A-Line / Ball Gown",
+        neckline: "Deep V-Neck",
+        sleeve: "Cap Sleeves",
+        sizes: ["XS", "S", "M", "L"],
+        variants: [
+            { sku: "CT-BR-1002-XS", size: "XS", inventoryQty: 2 },
+            { sku: "CT-BR-1002-S", size: "S", inventoryQty: 3 },
+            { sku: "CT-BR-1002-M", size: "M", inventoryQty: 3 },
+            { sku: "CT-BR-1002-L", size: "L", inventoryQty: 2 }
+        ],
+        isMadeToOrder: true,
+        published: true
+    },
+    {
+        title: "Blush Bow Ball Bridal Gown",
+        slug: "blush-bow-ball-bridal-gown",
+        sku: "CT-BR-1003",
+        shortDescription: "Soft blush pink ball gown featuring a signature oversized silk bow and floral lace.",
+        description: "<p>Whimsical and ultra-feminine, this blush pink ball gown is a fairytale come to life. Delicate floral lace appliqués dance across the bodice and cascade down the shimmering tulle skirt. The focal point is a magnificent, oversized silk dupioni bow at the waist, adding a touch of modern sculpture to the romantic design. The softest shade of blush provides a warm, radiant glow for the modern bride.</p>",
+        price: 48500,
+        currency: "INR",
+        categories: ["new-arrivals", "bridal"],
+        tags: ["pink", "blush", "bow", "lace", "fairytale", "bridal"],
+        images: [{ url: "/assets/bridal-gowns/blush-bow-ball-bridal.png", alt: "Blush Bow Ball Bridal Gown", type: "hero" }],
+        fabric: "Floral Lace & Shimmer Tulle",
+        silhouette: "Large Ball Gown",
+        neckline: "Square Neck",
+        sleeve: "Wide Straps",
+        sizes: ["XS", "S", "M", "L"],
+        variants: [
+            { sku: "CT-BR-1003-XS", size: "XS", inventoryQty: 2 },
+            { sku: "CT-BR-1003-S", size: "S", inventoryQty: 3 },
+            { sku: "CT-BR-1003-M", size: "M", inventoryQty: 3 },
+            { sku: "CT-BR-1003-L", size: "L", inventoryQty: 2 }
+        ],
+        isMadeToOrder: true,
+        published: true
+    },
+    {
+        title: "Crystal Ball Wedding Gown",
+        slug: "crystal-ball-wedding-gown",
+        sku: "CT-BR-1004",
+        shortDescription: "Breathtaking ball gown entirely encrusted with thousands of hand-applied crystals.",
+        description: "<p>Capture the light from every angle in this show-stopping crystal-encrusted gown. The entire bodice and upper skirt are adorned with a constellation of Swarovski crystals and silver bugle beads in a geometric art-deco pattern. The heavy silk organza skirt provides incredible volume without the weight, while the long sheer sleeves offer a touch of royal modesty. A true heirloom piece for a glittering celebration.</p>",
+        price: 65000,
+        currency: "INR",
+        categories: ["new-arrivals", "bridal", "ball-gowns"],
+        tags: ["white", "crystals", "beaded", "royal", "luxury", "bridal"],
+        images: [{ url: "/assets/bridal-gowns/crystal-ball-wedding-gown.png", alt: "Crystal Ball Wedding Gown", type: "hero" }],
+        fabric: "Silk Organza & Crystal Mesh",
+        silhouette: "Cathedral Ball Gown",
+        neckline: "High Neck",
+        sleeve: "Long Sheer Sleeves",
+        sizes: ["XS", "S", "M", "L"],
+        variants: [
+            { sku: "CT-BR-1004-XS", size: "XS", inventoryQty: 1 },
+            { sku: "CT-BR-1004-S", size: "S", inventoryQty: 2 },
+            { sku: "CT-BR-1004-M", size: "M", inventoryQty: 2 },
+            { sku: "CT-BR-1004-L", size: "L", inventoryQty: 1 }
+        ],
+        isMadeToOrder: true,
+        published: true
+    },
+    {
+        title: "Ivory Veil Bubble Bridal Gown",
+        slug: "ivory-veil-bubble-bridal-gown",
+        sku: "CT-BR-1005",
+        shortDescription: "Contemporary bubble-hem silhouette with an attached sheer veil-cape transition.",
+        description: "<p>Innovation meets tradition in this unique ivory gown. Featuring a fashion-forward bubble hem that creates a chic, voluminous shape, this dress is crafted from technical silk taffeta that holds its form beautifully. A sheer silk chiffon veil is integrated into the shoulders, cascading down as a dramatic cape that moves airily behind the bride. A sophisticated choice for the trend-setting minimalist.</p>",
+        price: 42000,
+        currency: "INR",
+        categories: ["new-arrivals", "bridal"],
+        tags: ["ivory", "taffeta", "bubble-hem", "cape", "modern", "bridal"],
+        images: [{ url: "/assets/bridal-gowns/ivory-veil-bubble-bridal.png", alt: "Ivory Veil Bubble Bridal Gown", type: "hero" }],
+        fabric: "Silk Taffeta & Chiffon",
+        silhouette: "Bubble / Avant-Garde",
+        neckline: "Halter Style",
+        sleeve: "Sleeveless",
+        sizes: ["XS", "S", "M", "L"],
+        variants: [
+            { sku: "CT-BR-1005-XS", size: "XS", inventoryQty: 2 },
+            { sku: "CT-BR-1005-S", size: "S", inventoryQty: 4 },
+            { sku: "CT-BR-1005-M", size: "M", inventoryQty: 4 },
+            { sku: "CT-BR-1005-L", size: "L", inventoryQty: 2 }
+        ],
+        isMadeToOrder: true,
+        published: true
+    },
+    {
+        title: "Layered Tulle Princess Bridal Gown",
+        slug: "layered-tulle-princess-bridal-gown",
+        sku: "CT-BR-1006",
+        shortDescription: "Ethereal princess gown with multi-tonal tulle layers and a delicate leaf-motif bodice.",
+        description: "<p>Channel pure ethereal grace in this multi-layered tulle masterpiece. Variations of ivory, cream, and faint champagne tulle are stacked to create a soft, cloud-like depth in the skirt. The sheer bodice is embroidered with delicate botanical leaf motifs in silk thread and tiny seed pearls. Thin spaghetti straps and a low-cut back complete this light, airy design that's perfect for a garden or destination wedding.</p>",
+        price: 39500,
+        currency: "INR",
+        categories: ["new-arrivals", "bridal"],
+        tags: ["cream", "tulle", "princess", "embroidered", "ethereal", "bridal"],
+        images: [{ url: "/assets/bridal-gowns/layered-tulle-princess-bridal.png", alt: "Layered Tulle Princess Bridal Gown", type: "hero" }],
+        fabric: "Multi-tonal Tulle & Silk Embroidery",
+        silhouette: "Princess A-Line",
+        neckline: "V-Neck",
+        sleeve: "Spaghetti Straps",
+        sizes: ["XS", "S", "M", "L"],
+        variants: [
+            { sku: "CT-BR-1006-XS", size: "XS", inventoryQty: 4 },
+            { sku: "CT-BR-1006-S", size: "S", inventoryQty: 6 },
+            { sku: "CT-BR-1006-M", size: "M", inventoryQty: 6 },
+            { sku: "CT-BR-1006-L", size: "L", inventoryQty: 3 }
+        ],
+        isMadeToOrder: true,
+        published: true
+    },
+    {
+        title: "Pearl Train Satin Bridal Gown",
+        slug: "pearl-train-satin-bridal-gown",
+        sku: "CT-BR-1007",
+        shortDescription: "Sleek mermaid gown in liquid satin with a dramatic pearl-studded cathedral train.",
+        description: "<p>Liquid elegance personified. This minimalist mermaid gown skims the body in luxurious heavy silk satin that glows under evening lights. While the front is sophisticated and clean, the back reveals a breathtaking cathedral-length train entirely hand-studded with thousands of varying-sized freshwater pearls. A true 'wow' moment for the ceremony, blending modern chic with classic opulence.</p>",
+        price: 55000,
+        currency: "INR",
+        categories: ["new-arrivals", "bridal"],
+        tags: ["white", "satin", "pearls", "mermaid", "minimalist", "bridal"],
+        images: [{ url: "/assets/bridal-gowns/pearl-train-satin-bridal.png", alt: "Pearl Train Satin Bridal Gown", type: "hero" }],
+        fabric: "Heavy Silk Satin",
+        silhouette: "Mermaid",
+        neckline: "Bateau / High Neck",
+        sleeve: "Sleeveless",
+        sizes: ["XS", "S", "M", "L"],
+        variants: [
+            { sku: "CT-BR-1007-XS", size: "XS", inventoryQty: 1 },
+            { sku: "CT-BR-1007-S", size: "S", inventoryQty: 2 },
+            { sku: "CT-BR-1007-M", size: "M", inventoryQty: 2 },
+            { sku: "CT-BR-1007-L", size: "L", inventoryQty: 1 }
+        ],
+        isMadeToOrder: true,
+        published: true
+    },
+    {
+        title: "Sheer Sleeve Mermaid Bridal Gown",
+        slug: "sheer-sleeve-mermaid-bridal-gown",
+        sku: "CT-BR-1008",
+        shortDescription: "All-over lace mermaid gown with illusion sleeves and a contoured floral silhouette.",
+        description: "<p>Exquisite Chantilly lace covers every inch of this romantic mermaid gown. The design features a stunning illusion neckline and fitted sheer sleeves adorned with hand-placed floral appliqués that appear to float on the skin. The flared skirt begins at the mid-thigh, creating a dramatic 'hourglass' effect, finished with a delicate scalloped lace edge. Romantic, seductive, and eternally elegant.</p>",
+        price: 46000,
+        currency: "INR",
+        categories: ["new-arrivals", "bridal"],
+        tags: ["white", "lace", "mermaid", "sheer-sleeves", "romantic", "bridal"],
+        images: [{ url: "/assets/bridal-gowns/sheer-sleeve-mermaid-bridal.png", alt: "Sheer Sleeve Mermaid Bridal Gown", type: "hero" }],
+        fabric: "Chantilly Lace & Illusion Tulle",
+        silhouette: "Mermaid / Trumpet",
+        neckline: "Illusion Bateau",
+        sleeve: "Long Sheer Sleeves",
+        sizes: ["XS", "S", "M", "L"],
+        variants: [
+            { sku: "CT-BR-1008-XS", size: "XS", inventoryQty: 3 },
+            { sku: "CT-BR-1008-S", size: "S", inventoryQty: 4 },
+            { sku: "CT-BR-1008-M", size: "M", inventoryQty: 4 },
+            { sku: "CT-BR-1008-L", size: "L", inventoryQty: 2 }
+        ],
+        isMadeToOrder: true,
+        published: true
+    },
+    {
+        title: "Silver Royal Ball Bridal Gown",
+        slug: "silver-royal-ball-bridal-gown",
+        sku: "CT-BR-1009",
+        shortDescription: "Grand regency-inspired ball gown with silver metal-thread embroidery and royal crest motifs.",
+        description: "<p>Command respect in this regal silver-toned masterpiece. Inspired by European royal courts, this grand ball gown features a structured bodice embroidered with genuine silver metal-thread in intricate heraldic and floral patterns. The massive skirt is crafted from silver-shot silk brocade that holds a brilliant architectural shape. This gown is for the bride who wants to fee like true royalty on her day.</p>",
+        price: 58500,
+        currency: "INR",
+        categories: ["new-arrivals", "bridal", "ball-gowns"],
+        tags: ["silver", "brocade", "embroidered", "royal", "grand", "bridal"],
+        images: [{ url: "/assets/bridal-gowns/silver-royal-ball-bridal.png", alt: "Silver Royal Ball Bridal Gown", type: "hero" }],
+        fabric: "Silver Silk Brocade & Metal Thread",
+        silhouette: "Royal Ball Gown",
+        neckline: "Square Neckline",
+        sleeve: "Puff Shoulders",
+        sizes: ["XS", "S", "M", "L"],
+        variants: [
+            { sku: "CT-BR-1009-XS", size: "XS", inventoryQty: 2 },
+            { sku: "CT-BR-1009-S", size: "S", inventoryQty: 3 },
+            { sku: "CT-BR-1009-M", size: "M", inventoryQty: 3 },
+            { sku: "CT-BR-1009-L", size: "L", inventoryQty: 2 }
+        ],
         isMadeToOrder: true,
         published: true
     }
 ];
 
 module.exports = products;
-

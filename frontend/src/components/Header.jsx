@@ -81,8 +81,14 @@ export default function Header() {
                 </button>
 
                 {/* Logo */}
-                <Link ref={logoRef} href="/" className={`text-2xl font-serif tracking-widest uppercase transition-colors duration-500 ${textColor}`}>
-                    Coquette
+                <Link ref={logoRef} href="/" className="flex flex-col items-center group no-underline">
+                    <span className={`text-2xl font-serif tracking-[0.2em] uppercase transition-colors duration-500 leading-none ${textColor}`}>
+                        Coquette
+                    </span>
+                    <div className={`w-full h-[0.5px] my-1.5 transition-colors duration-500 ${isScrolled ? 'bg-black/30' : (isHome ? 'bg-white/40' : 'bg-black/30')}`} />
+                    <span className={`text-[12px] font-serif tracking-[0.4em] uppercase transition-colors duration-500 leading-none ${textColor}`}>
+                        Threads
+                    </span>
                 </Link>
 
                 {/* Desktop Nav */}
@@ -91,6 +97,7 @@ export default function Header() {
                     <Link href="/collection/ball-gowns" className="text-sm tracking-widest hover:text-accent transition-colors">BALL GOWNS</Link>
                     <Link href="/collection/bridal" className="text-sm tracking-widest hover:text-accent transition-colors">BRIDAL</Link>
                     <Link href="/collection/accessories" className="text-sm tracking-widest hover:text-accent transition-colors">ACCESSORIES</Link>
+                    <Link href="/about" className="text-sm tracking-widest hover:text-accent transition-colors">ABOUT</Link>
                     {isAdmin && (
                         <Link href="/admin" className={`text-xs font-bold border ${borderColor} px-3 py-1 hover:bg-black hover:text-white hover:border-black transition-all uppercase tracking-widest`}>
                             Admin Panel
@@ -118,6 +125,7 @@ export default function Header() {
                     <Link className="mobile-link text-lg font-serif" href="/collection/new-arrivals" onClick={() => setMobileMenuOpen(false)}>NEW ARRIVALS</Link>
                     <Link className="mobile-link text-lg font-serif" href="/collection/ball-gowns" onClick={() => setMobileMenuOpen(false)}>BALL GOWNS</Link>
                     <Link className="mobile-link text-lg font-serif" href="/collection/bridal" onClick={() => setMobileMenuOpen(false)}>BRIDAL</Link>
+                    <Link className="mobile-link text-lg font-serif" href="/about" onClick={() => setMobileMenuOpen(false)}>ABOUT</Link>
                 </div>
             )}
         </header>

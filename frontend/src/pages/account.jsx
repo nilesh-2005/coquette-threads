@@ -1,12 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import api from '@/lib/api';
 import { useAuth } from '@/context/AuthContext';
+import { useGsap } from '@/hooks/useGsap';
+import { gsap } from '@/lib/gsap';
 
 export default function Account() {
     const { user, login, logout, loading } = useAuth();
     const router = useRouter();
+    const accountHeaderRef = useRef(null);
+    const authHeaderRef = useRef(null);
     const [isLoginLoading, setIsLoginLoading] = useState(false);
     const [isRegisterLoading, setIsRegisterLoading] = useState(false);
     const [loginError, setLoginError] = useState('');
@@ -85,6 +89,24 @@ export default function Account() {
         router.push('/');
     };
 
+    useGsap(() => {
+        if (user && accountHeaderRef.current) {
+            gsap.fromTo(accountHeaderRef.current.children,
+                { y: 40, opacity: 0 },
+                { y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: 'power3.out', delay: 0.2 }
+            );
+        }
+    }, [user, loading]);
+
+    useGsap(() => {
+        if (!user && authHeaderRef.current) {
+            gsap.fromTo('.auth-header',
+                { y: 50, opacity: 0 },
+                { y: 0, opacity: 1, duration: 1.2, stagger: 0.2, ease: 'power3.out', delay: 0.3 }
+            );
+        }
+    }, [user, loading]);
+
     if (loading) {
         return <div className="min-h-screen bg-white pt-32 pb-20 px-4 md:px-0 font-serif flex justify-center"><div className="text-sm tracking-widest uppercase">Loading...</div></div>;
     }
@@ -97,7 +119,7 @@ export default function Account() {
                 </Head>
 
                 <div className="max-w-4xl mx-auto">
-                    <div className="flex justify-between items-end border-b border-gray-200 pb-8 mb-12">
+                    <div ref={accountHeaderRef} className="flex justify-between items-end border-b border-gray-200 pb-8 mb-12">
                         <div>
                             <h1 className="text-3xl tracking-widest uppercase text-[#1a1a1a] font-normal mb-2">My Account</h1>
                             <p className="font-sans text-sm text-gray-500 tracking-wide">Welcome back, {user.name}</p>
@@ -158,7 +180,7 @@ export default function Account() {
                 <div className="hidden md:block absolute top-12 bottom-0 left-1/2 w-px bg-gray-200 -translate-x-1/2"></div>
 
                 <div className="flex flex-col px-4 md:px-16 pt-8">
-                    <h2 className="text-3xl text-center mb-16 tracking-widest text-[#1a1a1a] uppercase font-normal">Sign In</h2>
+                    <h2 className="auth-header text-3xl text-center mb-16 tracking-widest text-[#1a1a1a] uppercase font-normal">Sign In</h2>
                     <form onSubmit={handleLogin} className="space-y-10 w-full max-w-sm mx-auto font-sans">
                         {loginError && (
                             <div className="bg-red-50 text-red-500 p-3 text-xs text-center tracking-wide">{loginError}</div>
@@ -203,7 +225,7 @@ export default function Account() {
                 </div>
 
                 <div className="flex flex-col px-4 md:px-16 pt-16 md:pt-8">
-                    <h2 className="text-3xl text-center mb-16 tracking-widest text-[#1a1a1a] uppercase font-normal">Sign Up</h2>
+                    <h2 className="auth-header text-3xl text-center mb-16 tracking-widest text-[#1a1a1a] uppercase font-normal">Sign Up</h2>
                     <form onSubmit={handleRegister} className="space-y-10 w-full max-w-sm mx-auto font-sans">
                         {registerError && (
                             <div className="bg-red-50 text-red-500 p-3 text-xs text-center tracking-wide">{registerError}</div>

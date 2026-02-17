@@ -3,7 +3,8 @@ import Head from 'next/head';
 import HeroEditorial from '@/components/HeroEditorial';
 import ProductCard from '@/components/ProductCard';
 import api from '@/lib/api';
-import { useStagger } from '@/hooks/useGsap';
+import { useGsap, useStagger } from '@/hooks/useGsap';
+import { gsap } from '@/lib/gsap';
 
 export default function Home() {
     const [products, setProducts] = useState([]);
@@ -14,6 +15,23 @@ export default function Home() {
             start: 'top 85%', // Start earlier
         }
     }, [products]);
+
+    useGsap(() => {
+        gsap.fromTo('.home-header > *',
+            { y: 50, opacity: 0 },
+            {
+                y: 0,
+                opacity: 1,
+                duration: 1.2,
+                stagger: 0.15,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.home-header',
+                    start: 'top 90%'
+                }
+            }
+        );
+    }, []);
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -41,7 +59,7 @@ export default function Home() {
 
             <section className="py-24 bg-secondary">
                 <div className="container mx-auto px-6">
-                    <div className="text-center mb-16">
+                    <div className="home-header text-center mb-16">
                         <h3 className="text-sm tracking-widest uppercase mb-4 text-gray-500">Curated Collection</h3>
                         <h2 className="text-4xl font-serif">The Atelier</h2>
                     </div>

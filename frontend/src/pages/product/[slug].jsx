@@ -71,14 +71,14 @@ export default function ProductPage() {
         if (detailsRef.current) {
             gsap.fromTo(
                 detailsRef.current.children,
-                { y: 30, opacity: 0 },
+                { y: 50, opacity: 0 },
                 {
                     y: 0,
                     opacity: 1,
-                    duration: 0.8,
-                    stagger: 0.1,
+                    duration: 1.2,
+                    stagger: 0.15,
                     ease: 'power3.out',
-                    delay: 0.2,
+                    delay: 0.3,
                 }
             );
         }

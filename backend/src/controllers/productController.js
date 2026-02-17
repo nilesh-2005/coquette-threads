@@ -1,4 +1,5 @@
 const Product = require('../models/Product');
+const Category = require('../models/Category');
 
 // @desc    Fetch all products
 // @route   GET /api/products
@@ -18,7 +19,21 @@ const getProducts = async (req, res) => {
             : {};
 
         // Filter by Category
-        const categoryFilter = req.query.category ? { categories: req.query.category } : {};
+        let categoryFilter = {};
+        if (req.query.category) {
+            // Try treating as ObjectId first, if it fails, search by slug
+            if (req.query.category.match(/^[0-9a-fA-F]{24}$/)) {
+                categoryFilter = { categories: req.query.category };
+            } else {
+                const foundCategory = await Category.findOne({ slug: req.query.category });
+                if (foundCategory) {
+                    categoryFilter = { categories: foundCategory._id };
+                } else {
+                    // Category slug not found, return empty results
+                    return res.json({ products: [], page, pages: 0 });
+                }
+            }
+        }
 
         // If not admin, only show published products
         const isAdmin = req.user && req.user.isAdmin;
