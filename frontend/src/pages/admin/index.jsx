@@ -53,11 +53,11 @@ function Dashboard() {
 
             {/* Recent Orders */}
             <div className="border border-gray-200">
-                <div className="p-6 border-b border-gray-200 flex justify-between items-center bg-gray-50">
+                <div className="p-6 border-b border-gray-200 flex justify-between items-center bg-white">
                     <h2 className="text-sm uppercase tracking-widest">Recent Orders</h2>
                     <button className="text-xs uppercase tracking-widest text-gray-500 hover:text-black hover:underline">View All</button>
                 </div>
-                <div className="overflow-x-auto">
+                <div className="overflow-x-auto bg-white">
                     <table className="w-full text-left">
                         <thead className="bg-white text-xs uppercase text-gray-400 tracking-widest border-b border-gray-100">
                             <tr>
@@ -70,7 +70,7 @@ function Dashboard() {
                         </thead>
                         <tbody className="divide-y divide-gray-100">
                             {recentOrders.map((order) => (
-                                <tr key={order._id} className="hover:bg-gray-50 transition-colors">
+                                <tr key={order._id} className="hover:bg-gray-50 transition-colors bg-white">
                                     <td className="px-6 py-6 font-mono text-xs">#{order._id.substring(order._id.length - 6).toUpperCase()}</td>
                                     <td className="px-6 py-6 text-sm">{order.user?.name || 'Guest'}</td>
                                     <td className="px-6 py-6 text-sm text-gray-500 font-mono">{new Date(order.createdAt).toLocaleDateString()}</td>
