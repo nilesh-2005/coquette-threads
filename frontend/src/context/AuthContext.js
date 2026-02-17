@@ -9,11 +9,14 @@ export const AuthProvider = ({ children }) => {
     });
 
     useEffect(() => {
-        const storedUser = localStorage.getItem('userInfo');
-        setAuthState({
-            user: storedUser ? JSON.parse(storedUser) : null,
-            loading: false
-        });
+        const initializeAuth = () => {
+            const storedUser = localStorage.getItem('userInfo');
+            setAuthState({
+                user: storedUser ? JSON.parse(storedUser) : null,
+                loading: false
+            });
+        };
+        initializeAuth();
     }, []);
 
     const login = (userData) => {

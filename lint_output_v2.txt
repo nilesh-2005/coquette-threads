@@ -1,0 +1,34 @@
+
+> coquette-threads@1.0.0 lint
+> npm run lint:frontend
+
+
+> coquette-threads@1.0.0 lint:frontend
+> cd frontend && npm run lint
+
+
+> frontend@0.1.0 lint
+> eslint
+
+
+C:\Users\frien\OneDrive\Desktop\Coquette-Threads\frontend\src\components\Admin\ProductForm.jsx
+  347:45  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\frien\OneDrive\Desktop\Coquette-Threads\frontend\src\components\CartDrawer.jsx
+  71:37  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\frien\OneDrive\Desktop\Coquette-Threads\frontend\src\components\ProductCard.jsx
+  14:21  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\frien\OneDrive\Desktop\Coquette-Threads\frontend\src\pages\account.jsx
+  118:8  warning  React Hook useEffect has a missing dependency: 'logout'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+C:\Users\frien\OneDrive\Desktop\Coquette-Threads\frontend\src\pages\admin\products\index.jsx
+  81:53  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\frien\OneDrive\Desktop\Coquette-Threads\frontend\src\pages\product\[slug].jsx
+  110:37  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  125:41  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+Γ£û 7 problems (0 errors, 7 warnings)
+

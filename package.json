@@ -7,6 +7,8 @@
     "dev:all": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
     "dev:backend": "cd backend && npm run dev",
     "dev:frontend": "cd frontend && npm run dev",
+    "lint": "npm run lint:frontend",
+    "lint:frontend": "cd frontend && npm run lint",
     "seed": "cd backend && npm run seed"
   },
   "keywords": [],

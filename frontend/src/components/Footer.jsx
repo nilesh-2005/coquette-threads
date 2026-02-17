@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function Footer() {
     return (
         <footer className="bg-primary text-secondary py-12 md:py-16">
@@ -12,10 +14,10 @@ export default function Footer() {
                 <div>
                     <h5 className="text-sm uppercase tracking-widest mb-6 font-bold">Shop</h5>
                     <ul className="space-y-3 text-sm text-gray-400 font-sans">
-                        <li><a href="/collection/new-arrivals" className="hover:text-white transition-colors">New Arrivals</a></li>
-                        <li><a href="/collection/ball-gowns" className="hover:text-white transition-colors">Ball Gowns</a></li>
-                        <li><a href="/collection/bridal" className="hover:text-white transition-colors">Bridal</a></li>
-                        <li><a href="/about" className="hover:text-white transition-colors font-bold text-accent">Our Story (About)</a></li>
+                        <li><Link href="/collection/new-arrivals" className="hover:text-white transition-colors">New Arrivals</Link></li>
+                        <li><Link href="/collection/ball-gowns" className="hover:text-white transition-colors">Ball Gowns</Link></li>
+                        <li><Link href="/collection/bridal" className="hover:text-white transition-colors">Bridal</Link></li>
+                        <li><Link href="/about" className="hover:text-white transition-colors font-bold text-accent">Our Story (About)</Link></li>
                     </ul>
                 </div>
 

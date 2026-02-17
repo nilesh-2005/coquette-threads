@@ -1,0 +1,63 @@
+
+> coquette-threads@1.0.0 lint
+> npm run lint:frontend
+
+
+> coquette-threads@1.0.0 lint:frontend
+> cd frontend && npm run lint
+
+
+> frontend@0.1.0 lint
+> eslint
+
+
+C:\Users\frien\OneDrive\Desktop\Coquette-Threads\frontend\src\components\Admin\ProductForm.jsx
+  347:45  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\frien\OneDrive\Desktop\Coquette-Threads\frontend\src\components\CartDrawer.jsx
+  71:37  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\frien\OneDrive\Desktop\Coquette-Threads\frontend\src\components\Footer.jsx
+  15:29  error  Do not use an `<a>` element to navigate to `/collection/new-arrivals/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+  16:29  error  Do not use an `<a>` element to navigate to `/collection/ball-gowns/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages    @next/next/no-html-link-for-pages
+  17:29  error  Do not use an `<a>` element to navigate to `/collection/bridal/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages        @next/next/no-html-link-for-pages
+  18:29  error  Do not use an `<a>` element to navigate to `/about/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages                    @next/next/no-html-link-for-pages
+
+C:\Users\frien\OneDrive\Desktop\Coquette-Threads\frontend\src\components\ProductCard.jsx
+  14:21  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\frien\OneDrive\Desktop\Coquette-Threads\frontend\src\context\AuthContext.js
+  13:9  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  11 |     useEffect(() => {
+  12 |         const storedUser = localStorage.getItem('userInfo');
+> 13 |         setAuthState({
+     |         ^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  14 |             user: storedUser ? JSON.parse(storedUser) : null,
+  15 |             loading: false
+  16 |         });  react-hooks/set-state-in-effect
+
+C:\Users\frien\OneDrive\Desktop\Coquette-Threads\frontend\src\pages\about.jsx
+   63:29   warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+   85:33   error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                          react/no-unescaped-entities
+   86:112  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                          react/no-unescaped-entities
+  118:41   warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\frien\OneDrive\Desktop\Coquette-Threads\frontend\src\pages\account.jsx
+  118:8  warning  React Hook useEffect has a missing dependency: 'logout'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+C:\Users\frien\OneDrive\Desktop\Coquette-Threads\frontend\src\pages\admin\products\index.jsx
+  81:53  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\frien\OneDrive\Desktop\Coquette-Threads\frontend\src\pages\product\[slug].jsx
+  110:37  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  125:41  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+Γ£û 16 problems (7 errors, 9 warnings)
+

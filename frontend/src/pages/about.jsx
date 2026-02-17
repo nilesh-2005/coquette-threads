@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Image from 'next/image';
 import { useGsap, useStagger } from '@/hooks/useGsap';
 import { gsap } from '@/lib/gsap';
 import { useRef } from 'react';
@@ -60,9 +61,11 @@ export default function AboutPage() {
                     {/* Header Section */}
                     <div ref={headerRef} className="text-center mb-16">
                         <div className="flex justify-center mb-12">
-                            <img
+                            <Image
                                 src="/logo.png"
                                 alt="Coquette Threads Logo"
+                                width={128}
+                                height={128}
                                 className="h-32 w-auto object-contain"
                             />
                         </div>
@@ -82,8 +85,8 @@ export default function AboutPage() {
                                 and refined ceremony.
                             </p>
                             <p className="font-bold text-gray-900 border-l-4 border-accent pl-6 py-2 italic text-xl">
-                                "This platform is more than just a boutique; it is the culmination of our E-Commerce Subject Assignment at college,
-                                representing our journey in mastering the complexities of modern digital trade."
+                                &quot;This platform is more than just a boutique; it is the culmination of our E-Commerce Subject Assignment at college,
+                                representing our journey in mastering the complexities of modern digital trade.&quot;
                             </p>
                             <p>
                                 From the meticulous selection of bridal gowns to the curated editorial experience of our landing page,
@@ -115,9 +118,10 @@ export default function AboutPage() {
                                 <div key={idx} className="team-member flex flex-col items-center text-center opacity-0 group">
                                     <div className="relative w-48 h-48 mb-8 overflow-hidden rounded-full border-4 border-white shadow-xl transition-transform duration-500 group-hover:scale-110">
                                         <div className="absolute inset-0 bg-gray-200 animate-pulse"></div>
-                                        <img
+                                        <Image
                                             src={member.image}
                                             alt={member.name}
+                                            fill
                                             className="absolute inset-0 w-full h-full object-cover"
                                         />
                                     </div>
