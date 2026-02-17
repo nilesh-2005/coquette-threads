@@ -17,13 +17,30 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Database Connection
-mongoose
-  .connect(process.env.MONGO_URI || 'mongodb://localhost:27017/coquette_threads', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log('MongoDB Connected'))
-  .catch((err) => console.log(err));
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/coquette_threads', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 5000,
+      connectTimeoutMS: 10000,
+    });
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch (err) {
+    console.error(`Error: ${err.message}`);
+    // Don't exit here, let Mongoose retry if possible, or handle via middleware
+  }
+};
+
+connectDB();
+
+mongoose.connection.on('error', err => {
+  console.error('Mongoose connection error:', err);
+});
+
+mongoose.connection.on('disconnected', () => {
+  console.warn('Mongoose disconnected. Attempting to reconnect...');
+});
 
 // Routes (Placeholder)
 app.get('/', (req, res) => {
