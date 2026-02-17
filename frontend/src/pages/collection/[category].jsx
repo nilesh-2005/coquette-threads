@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import api from '@/lib/api';
@@ -11,22 +11,49 @@ export default function Collection() {
     const { category } = router.query;
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [sortBy, setSortBy] = useState('newest');
+    const [priceFilter, setPriceFilter] = useState('all');
+    const [showSort, setShowSort] = useState(false);
+    const [showFilter, setShowFilter] = useState(false);
     const headerRef = useRef(null);
+    const sortRef = useRef(null);
+    const filterRef = useRef(null);
+
+    const sortedProducts = useMemo(() => {
+        let items = [...products];
+
+        // Filter
+        if (priceFilter === 'under_10k') {
+            items = items.filter(p => p.price < 10000);
+        } else if (priceFilter === '10k_50k') {
+            items = items.filter(p => p.price >= 10000 && p.price <= 50000);
+        } else if (priceFilter === 'above_50k') {
+            items = items.filter(p => p.price > 50000);
+        }
+
+        // Sort
+        if (sortBy === 'price_asc') {
+            items.sort((a, b) => a.price - b.price);
+        } else if (sortBy === 'price_desc') {
+            items.sort((a, b) => b.price - a.price);
+        } else if (sortBy === 'newest') {
+            items.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        }
+        return items;
+    }, [products, sortBy, priceFilter]);
 
     const gridRef = useStagger('.product-card', {
         to: { opacity: 1, duration: 0.8, ease: 'power2.out' },
         scrollTrigger: {
             start: 'top 85%',
         }
-    }, [products]);
+    }, [sortedProducts]);
 
     useEffect(() => {
         if (!category) return;
         const fetchProducts = async () => {
             setLoading(true);
             try {
-                // Map slug to category name or ID if needed, for now fetching all or filtered by keyword/category
-                // Assuming backend supports filtering by category slug or name
                 const { data } = await api.get(`/products?category=${category}`);
                 setProducts(data.products);
             } catch (error) {
@@ -39,6 +66,19 @@ export default function Collection() {
         fetchProducts();
     }, [category]);
 
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (sortRef.current && !sortRef.current.contains(event.target)) {
+                setShowSort(false);
+            }
+            if (filterRef.current && !filterRef.current.contains(event.target)) {
+                setShowFilter(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
     useGsap(() => {
         if (headerRef.current) {
             gsap.fromTo(headerRef.current.children,
@@ -46,7 +86,7 @@ export default function Collection() {
                 { y: 0, opacity: 1, duration: 1.2, stagger: 0.15, ease: 'power3.out', delay: 0.3 }
             );
         }
-    }, [category]); // Re-run when category changes
+    }, [category]);
 
     const formatTitle = (slug) => slug ? slug.replace(/-/g, ' ').toUpperCase() : '';
 
@@ -67,18 +107,78 @@ export default function Collection() {
                         </p>
                     </div>
 
-                    {/* Toolbar Placeholder */}
+                    {/* Toolbar */}
                     <div className="flex flex-col md:flex-row justify-between items-center mb-12 py-4 border-y border-gray-100">
-                        <div className="text-xs uppercase tracking-widest text-gray-400 mb-4 md:mb-0">
-                            {products.length} Products Found
+                        <div className="text-xs uppercase tracking-widest text-gray-400 mb-4 md:mb-0 font-sans">
+                            {sortedProducts.length} Products Found
                         </div>
-                        <div className="flex space-x-8 text-xs uppercase tracking-widest text-gray-500 cursor-pointer">
-                            <span className="hover:text-accent transition-colors flex items-center">
-                                Filter <span className="ml-2 pr-2 border-r border-gray-200">+</span>
-                            </span>
-                            <span className="hover:text-accent transition-colors">
-                                Sort By <span className="ml-2">↓</span>
-                            </span>
+                        <div className="flex space-x-8 text-xs uppercase tracking-widest text-gray-500 font-sans relative">
+                            {/* Filter Dropdown */}
+                            <div className="relative" ref={filterRef}>
+                                <button
+                                    onClick={() => setShowFilter(!showFilter)}
+                                    className="hover:text-accent transition-colors uppercase tracking-widest flex items-center"
+                                >
+                                    Filter <span className="ml-2 pr-2 border-r border-gray-200">{showFilter ? '−' : '+'}</span>
+                                </button>
+
+                                {showFilter && (
+                                    <div className="absolute top-full left-0 mt-4 w-56 bg-white shadow-xl border border-gray-100 z-50 p-6 space-y-4 font-sans">
+                                        <p className="text-[10px] font-bold tracking-[0.2em] text-black border-b border-gray-100 pb-2 mb-2 uppercase">Price Range</p>
+                                        {[
+                                            { id: 'all', label: 'All Items' },
+                                            { id: 'under_10k', label: 'Under ₹10,000' },
+                                            { id: '10k_50k', label: '₹10,000 - ₹50,000' },
+                                            { id: 'above_50k', label: 'Above ₹50,000' }
+                                        ].map(option => (
+                                            <button
+                                                key={option.id}
+                                                onClick={() => {
+                                                    setPriceFilter(option.id);
+                                                    setShowFilter(false);
+                                                }}
+                                                className={`block w-full text-left text-[10px] tracking-[0.2em] uppercase transition-colors ${priceFilter === option.id ? 'text-accent font-bold' : 'text-gray-500 hover:text-black'
+                                                    }`}
+                                            >
+                                                {option.label}
+                                            </button>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Sort Dropdown */}
+                            <div className="relative" ref={sortRef}>
+                                <button
+                                    onClick={() => setShowSort(!showSort)}
+                                    className="hover:text-accent transition-colors uppercase tracking-widest flex items-center"
+                                >
+                                    Sort By <span className="ml-2">{showSort ? '↑' : '↓'}</span>
+                                </button>
+
+                                {showSort && (
+                                    <div className="absolute top-full right-0 mt-4 w-56 bg-white shadow-xl border border-gray-100 z-50 p-6 space-y-4 font-sans">
+                                        <p className="text-[10px] font-bold tracking-[0.2em] text-black border-b border-gray-100 pb-2 mb-2 uppercase">Sort Order</p>
+                                        {[
+                                            { id: 'newest', label: 'Newest First' },
+                                            { id: 'price_asc', label: 'Price: Low to High' },
+                                            { id: 'price_desc', label: 'Price: High to Low' }
+                                        ].map(option => (
+                                            <button
+                                                key={option.id}
+                                                onClick={() => {
+                                                    setSortBy(option.id);
+                                                    setShowSort(false);
+                                                }}
+                                                className={`block w-full text-left text-[10px] tracking-[0.2em] uppercase transition-colors ${sortBy === option.id ? 'text-accent font-bold' : 'text-gray-500 hover:text-black'
+                                                    }`}
+                                            >
+                                                {option.label}
+                                            </button>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     </div>
 
@@ -88,8 +188,8 @@ export default function Collection() {
                         </div>
                     ) : (
                         <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-12">
-                            {products.length > 0 ? (
-                                products.map(p => <ProductCard key={p._id} product={p} />)
+                            {sortedProducts.length > 0 ? (
+                                sortedProducts.map(p => <ProductCard key={p._id} product={p} />)
                             ) : (
                                 <div className="col-span-full text-center py-20 bg-white/50 rounded-lg">
                                     <p className="text-gray-400 font-serif italic text-xl">No items found in this collection.</p>

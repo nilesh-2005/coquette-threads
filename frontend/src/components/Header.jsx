@@ -54,15 +54,16 @@ export default function Header() {
     // Mobile Menu Animation
     useGsap(() => {
         if (mobileMenuOpen) {
+            // Slide in from left
             gsap.fromTo(mobileMenuRef.current,
-                { opacity: 0, scaleY: 0.95, transformOrigin: 'top center' },
-                { opacity: 1, scaleY: 1, duration: 0.4, ease: 'expo.out' }
+                { xPercent: -100 },
+                { xPercent: 0, duration: 0.6, ease: 'expo.out' }
             );
 
             // Stagger links
             gsap.fromTo('.mobile-link',
-                { y: 20, opacity: 0 },
-                { y: 0, opacity: 1, duration: 0.4, stagger: 0.1, delay: 0.1, ease: 'power2.out' }
+                { x: -20, opacity: 0 },
+                { x: 0, opacity: 1, duration: 0.5, stagger: 0.08, delay: 0.2, ease: 'power2.out' }
             );
         }
     }, [mobileMenuOpen]);
@@ -93,6 +94,7 @@ export default function Header() {
 
                 {/* Desktop Nav */}
                 <nav className={`hidden md:flex space-x-8 items-center transition-colors duration-500 ${textColor}`}>
+                    <Link href="/" className="text-sm tracking-widest hover:text-accent transition-colors">HOME</Link>
                     <Link href="/collection/new-arrivals" className="text-sm tracking-widest hover:text-accent transition-colors">NEW ARRIVALS</Link>
                     <Link href="/collection/ball-gowns" className="text-sm tracking-widest hover:text-accent transition-colors">BALL GOWNS</Link>
                     <Link href="/collection/bridal" className="text-sm tracking-widest hover:text-accent transition-colors">BRIDAL</Link>
@@ -121,12 +123,77 @@ export default function Header() {
 
             {/* Mobile Menu Overlay */}
             {mobileMenuOpen && (
-                <div ref={mobileMenuRef} className="absolute top-full left-0 w-full bg-white border-t p-6 md:hidden flex flex-col space-y-4 shadow-md h-screen">
-                    <Link className="mobile-link text-lg font-serif" href="/collection/new-arrivals" onClick={() => setMobileMenuOpen(false)}>NEW ARRIVALS</Link>
-                    <Link className="mobile-link text-lg font-serif" href="/collection/ball-gowns" onClick={() => setMobileMenuOpen(false)}>BALL GOWNS</Link>
-                    <Link className="mobile-link text-lg font-serif" href="/collection/bridal" onClick={() => setMobileMenuOpen(false)}>BRIDAL</Link>
-                    <Link className="mobile-link text-lg font-serif" href="/about" onClick={() => setMobileMenuOpen(false)}>ABOUT</Link>
-                </div>
+                <>
+                    {/* Backdrop */}
+                    <div
+                        className="fixed inset-0 bg-black/40 z-[90] md:hidden backdrop-blur-sm transition-opacity duration-500"
+                        onClick={() => setMobileMenuOpen(false)}
+                    />
+
+                    {/* Drawer */}
+                    <div ref={mobileMenuRef} className="fixed inset-y-0 left-0 w-[85%] max-w-[320px] z-[100] bg-[#faf9f6] flex flex-col md:hidden overflow-hidden shadow-2xl">
+                        {/* Header in Overlay */}
+                        <div className="flex justify-between items-center px-6 py-6 border-b border-gray-100">
+                            <span className="text-[10px] tracking-widest uppercase text-gray-400 font-sans font-bold">Menu</span>
+                            <button className="text-black" onClick={() => setMobileMenuOpen(false)}>
+                                <XMarkIcon className="h-6 w-6" />
+                            </button>
+                        </div>
+
+                        {/* Logo Watermark */}
+                        <div className="absolute top-1/2 right-0 -translate-y-1/2 opacity-[0.03] select-none pointer-events-none rotate-90 origin-center translate-x-1/2">
+                            <span className="text-[8rem] font-serif uppercase tracking-[0.1em]">Coquette</span>
+                        </div>
+
+                        <div className="flex-1 overflow-y-auto px-8 py-10 flex flex-col relative z-20">
+                            <nav className="space-y-6 mb-12">
+                                {[
+                                    { name: 'HOME', href: '/' },
+                                    { name: 'NEW ARRIVALS', href: '/collection/new-arrivals' },
+                                    { name: 'BALL GOWNS', href: '/collection/ball-gowns' },
+                                    { name: 'BRIDAL', href: '/collection/bridal' },
+                                    { name: 'ACCESSORIES', href: '/collection/accessories' },
+                                    { name: 'OUR STORY', href: '/about' },
+                                    ...(isAdmin ? [{ name: 'ADMIN PANEL', href: '/admin' }] : [])
+                                ].map((item, i) => (
+                                    <Link
+                                        key={i}
+                                        href={item.href}
+                                        onClick={() => setMobileMenuOpen(false)}
+                                        className="mobile-link block group no-underline"
+                                    >
+                                        <div className="overflow-hidden">
+                                            <span className="text-2xl font-serif text-black hover:italic transition-all duration-300 block">
+                                                {item.name}
+                                            </span>
+                                        </div>
+                                        <div className="w-0 h-px bg-accent group-hover:w-full transition-all duration-500 mt-1"></div>
+                                    </Link>
+                                ))}
+                            </nav>
+
+                            {/* Additional Links */}
+                            <div className="mt-auto border-t border-gray-200 pt-8 space-y-6">
+                                <div className="mobile-link">
+                                    <span className="text-[10px] tracking-widest uppercase text-accent mb-2 block font-bold">Curated Selection</span>
+                                    <Link
+                                        href="/collection/bridal"
+                                        onClick={() => setMobileMenuOpen(false)}
+                                        className="text-xs font-serif italic text-gray-500 hover:text-black transition-colors"
+                                    >
+                                        Visit the bridal atelier →
+                                    </Link>
+                                </div>
+
+                                <div className="mobile-link flex flex-wrap gap-4 pt-4 border-t border-gray-100 mt-4">
+                                    <span className="text-[9px] tracking-widest uppercase text-gray-400 font-bold hover:text-black transition-colors">IG</span>
+                                    <span className="text-[9px] tracking-widest uppercase text-gray-400 font-bold hover:text-black transition-colors">PN</span>
+                                    <span className="text-[9px] tracking-widest uppercase text-gray-400 font-bold hover:text-black transition-colors">CT</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </>
             )}
         </header>
     );

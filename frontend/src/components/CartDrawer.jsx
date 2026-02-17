@@ -107,9 +107,13 @@ export default function CartDrawer() {
                             </span>
                         </div>
                         <p className="text-[10px] text-gray-500 mb-4 text-center uppercase tracking-wider">Shipping & taxes calculated at checkout.</p>
-                        <button className="block w-full bg-black text-white text-center py-4 uppercase tracking-widest text-xs hover:bg-gray-800 transition-colors shadow-lg">
+                        <Link
+                            href="/checkout"
+                            onClick={() => setIsCartOpen(false)}
+                            className="block w-full bg-black text-white text-center py-4 uppercase tracking-widest text-xs hover:bg-gray-800 transition-colors shadow-lg"
+                        >
                             Checkout
-                        </button>
+                        </Link>
                     </div>
                 )}
             </div>

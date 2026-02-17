@@ -1,22 +1,26 @@
+
 import { useState, useEffect, useRef } from 'react';
 import api from '@/lib/api';
 import Link from 'next/link';
 import Head from 'next/head';
 import { gsap } from '@/lib/gsap';
 import { useGsap } from '@/hooks/useGsap';
-import AdminRoute from '@/components/Admin/AdminRoute';
+import ProtectedRoute from '@/components/ProtectedRoute';
+import AdminLayout from '@/components/Admin/AdminLayout';
 
-export default function AdminProducts() {
+function AdminProducts() {
     const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchProducts = async () => {
             try {
                 const { data } = await api.get('/products?pageNumber=1&keyword=');
-                console.log('Frontend fetched products:', data.products);
                 setProducts(data.products || []);
             } catch (error) {
                 console.error('Frontend fetch error:', error);
+            } finally {
+                setLoading(false);
             }
         };
         fetchProducts();
@@ -24,7 +28,6 @@ export default function AdminProducts() {
 
     const scope = useGsap(() => {
         if (products.length > 0) {
-            console.log('Running GSAP animation for products');
             gsap.fromTo(
                 '.admin-row',
                 { opacity: 0, y: 10 },
@@ -34,55 +37,74 @@ export default function AdminProducts() {
     }, [products]);
 
     const handleDelete = async (id) => {
-        if (confirm('Are you sure?')) {
+        if (confirm('Are you sure you want to delete this product?')) {
             try {
                 await api.delete(`/products/${id}`);
                 setProducts(products.filter(p => p._id !== id));
             } catch (error) {
-                alert('Failed to delete');
+                alert('Failed to delete product');
             }
         }
     };
 
     return (
-        <AdminRoute>
-            <div className="min-h-screen bg-gray-50 pt-24 px-6">
-                <Head><title>Admin Products</title></Head>
-                <div className="container mx-auto">
-                    <div className="flex justify-between items-center mb-8">
-                        <h1 className="text-3xl font-serif">Products</h1>
-                        <Link href="/admin/products/new" className="bg-black text-white px-6 py-2 uppercase tracking-widest text-xs">
-                            Create New
-                        </Link>
-                    </div>
+        <AdminLayout>
+            <div className="max-w-3xl">
+                <div className="flex justify-between items-center mb-12">
+                    <h1 className="text-3xl tracking-widest uppercase text-black font-light">Products</h1>
+                    <Link href="/admin/products/new" className="bg-black text-white px-8 py-3 uppercase tracking-[0.2em] text-xs hover:bg-gray-800 transition-all border border-black">
+                        Create New
+                    </Link>
+                </div>
 
-                    <div ref={scope} className="bg-white shadow-sm overflow-hidden">
-                        <table className="min-w-full divide-y divide-gray-200">
-                            <thead className="bg-gray-50">
-                                <tr>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody className="bg-white divide-y divide-gray-200">
-                                {products.map(product => (
-                                    <tr key={product._id} className="admin-row">
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{product._id.substring(20, 24)}...</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{product.title}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">₹{product.price}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium spac-x-4">
-                                            <Link href={`/admin/products/${product._id}`} className="text-indigo-600 hover:text-indigo-900 mr-4">Edit</Link>
-                                            <button onClick={() => handleDelete(product._id)} className="text-red-600 hover:text-red-900">Delete</button>
+                <div ref={scope} className="bg-white border border-gray-200 overflow-x-auto">
+                    <table className="w-full text-left">
+                        <thead className="bg-white text-xs uppercase text-gray-400 tracking-widest border-b border-gray-100">
+                            <tr>
+                                <th className="px-6 py-6 font-normal w-24 text-center">Image</th>
+                                <th className="px-6 py-6 font-normal w-64">Name</th>
+                                <th className="px-6 py-6 font-normal w-32">Price</th>
+                                <th className="px-6 py-6 font-normal text-right w-40">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-100">
+                            {loading ? (
+                                <tr><td colSpan="4" className="px-6 py-12 text-center text-gray-500 font-serif">Loading products...</td></tr>
+                            ) : products.length === 0 ? (
+                                <tr><td colSpan="4" className="px-6 py-12 text-center text-gray-500 font-serif">No products found.</td></tr>
+                            ) : (
+                                products.map(product => (
+                                    <tr key={product._id} className="admin-row hover:bg-gray-50 transition-colors">
+                                        <td className="px-6 py-4 text-center">
+                                            <div className="w-12 h-16 bg-gray-50 border border-gray-100 overflow-hidden mx-auto">
+                                                {product.images?.[0]?.url ? (
+                                                    <img src={product.images[0].url} alt={product.title} className="w-full h-full object-cover" />
+                                                ) : (
+                                                    <div className="w-full h-full flex items-center justify-center text-gray-300 text-[10px] uppercase">No Img</div>
+                                                )}
+                                            </div>
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 font-serif">{product.title}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-serif">₹{product.price.toLocaleString()}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-xs uppercase tracking-wider space-x-6 text-right">
+                                            <Link href={`/admin/products/${product._id}`} className="text-black hover:underline">Edit</Link>
+                                            <button onClick={() => handleDelete(product._id)} className="text-gray-400 hover:text-red-600">Delete</button>
                                         </td>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
+                                ))
+                            )}
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        </AdminRoute>
+        </AdminLayout>
+    );
+}
+
+export default function ProtectedAdminProducts() {
+    return (
+        <ProtectedRoute adminOnly>
+            <AdminProducts />
+        </ProtectedRoute>
     );
 }

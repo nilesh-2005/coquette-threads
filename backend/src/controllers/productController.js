@@ -45,9 +45,10 @@ const getProducts = async (req, res) => {
 
         const count = await Product.countDocuments(filter);
         const products = await Product.find(filter)
-            .limit(pageSize)
+            .sort({ createdAt: -1 })
             .skip(pageSize * (page - 1))
-            .sort({ createdAt: -1 }); // Show newest first
+            .limit(pageSize)
+            .populate({ path: 'categories', select: 'name' });
 
         res.json({ products, page, pages: Math.ceil(count / pageSize) });
     } catch (error) {
@@ -60,7 +61,7 @@ const getProducts = async (req, res) => {
 // @access  Public
 const getProductById = async (req, res) => {
     try {
-        const product = await Product.findById(req.params.id);
+        const product = await Product.findById(req.params.id).populate({ path: 'categories', select: 'name' });
 
         if (product) {
             res.json(product);

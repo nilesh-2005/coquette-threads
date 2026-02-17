@@ -98,6 +98,25 @@ export default function Account() {
         }
     }, [user, loading]);
 
+    const [orders, setOrders] = useState([]);
+
+    useEffect(() => {
+        if (user) {
+            const fetchOrders = async () => {
+                try {
+                    const { data } = await api.get('/orders/myorders');
+                    setOrders(data);
+                } catch (error) {
+                    console.error('Failed to fetch orders', error);
+                    if (error.response?.status === 401) {
+                        logout();
+                    }
+                }
+            };
+            fetchOrders();
+        }
+    }, [user]);
+
     useGsap(() => {
         if (!user && authHeaderRef.current) {
             gsap.fromTo('.auth-header',
@@ -108,34 +127,26 @@ export default function Account() {
     }, [user, loading]);
 
     if (loading) {
-        return <div className="min-h-screen bg-white pt-32 pb-20 px-4 md:px-0 font-serif flex justify-center"><div className="text-sm tracking-widest uppercase">Loading...</div></div>;
+        return <div className="min-h-screen bg-secondary pt-32 pb-20 px-4 md:px-0 font-serif flex justify-center"><div className="text-sm tracking-widest uppercase">Loading...</div></div>;
     }
 
     if (user) {
         return (
-            <div className="min-h-screen bg-white pt-32 pb-20 px-8 md:px-16 font-serif">
+            <div className="min-h-screen bg-secondary pt-32 pb-20 px-6 md:px-16 font-serif">
                 <Head>
                     <title>My Account | Coquette Threads</title>
                 </Head>
 
                 <div className="max-w-4xl mx-auto">
-                    <div ref={accountHeaderRef} className="flex justify-between items-end border-b border-gray-200 pb-8 mb-12">
+                    <div ref={accountHeaderRef} className="flex flex-col md:flex-row md:justify-between md:items-end border-b border-gray-200 pb-8 mb-12 gap-6 md:gap-0">
                         <div>
                             <h1 className="text-3xl tracking-widest uppercase text-[#1a1a1a] font-normal mb-2">My Account</h1>
                             <p className="font-sans text-sm text-gray-500 tracking-wide">Welcome back, {user.name}</p>
                         </div>
                         <div className="flex space-x-4">
-                            {(user.isAdmin || user.role === 'admin') && (
-                                <button
-                                    onClick={() => router.push('/admin')}
-                                    className="bg-black text-white border border-black px-6 py-2 rounded-full uppercase text-[10px] tracking-[0.2em] hover:bg-gray-800 transition-all"
-                                >
-                                    Admin Dashboard
-                                </button>
-                            )}
                             <button
                                 onClick={handleLogout}
-                                className="bg-transparent border border-gray-300 text-gray-800 px-6 py-2 rounded-full uppercase text-[10px] tracking-[0.2em] hover:bg-black hover:text-white hover:border-black transition-all"
+                                className="bg-transparent border border-gray-200 text-gray-400 px-8 py-3 uppercase text-[10px] tracking-[0.2em] hover:border-black hover:text-black transition-all"
                             >
                                 Log Out
                             </button>
@@ -144,22 +155,74 @@ export default function Account() {
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
                         <div className="md:col-span-2">
-                            <h2 className="text-xl tracking-widest uppercase text-[#1a1a1a] font-normal mb-6">Order History</h2>
-                            <div className="bg-gray-50 p-12 text-center">
-                                <p className="font-sans text-sm text-gray-500 tracking-wide">You haven&apos;t placed any orders yet.</p>
-                                <button className="mt-6 bg-black text-white px-8 py-3 rounded-full uppercase text-[10px] tracking-[0.2em] hover:bg-gray-800 transition-all">
-                                    Start Shopping
-                                </button>
-                            </div>
+                            <h2 className="text-xl tracking-widest uppercase text-[#1a1a1a] font-normal mb-8">Order History</h2>
+                            {orders.length === 0 ? (
+                                <div className="bg-gray-50 border border-gray-100 p-12 text-center">
+                                    <p className="font-sans text-sm text-gray-500 tracking-wide mb-6">You haven&apos;t placed any orders yet.</p>
+                                    <button
+                                        onClick={() => router.push('/collection/new-arrivals')}
+                                        className="bg-black text-white px-8 py-3 uppercase text-[10px] tracking-[0.2em] hover:bg-gray-800 transition-all"
+                                    >
+                                        Start Shopping
+                                    </button>
+                                </div>
+                            ) : (
+                                <div className="space-y-4">
+                                    {orders.map((order) => (
+                                        <div key={order._id} className="border border-gray-100 p-6 hover:border-gray-300 transition-colors bg-white">
+                                            <div className="flex justify-between items-start mb-6">
+                                                <div>
+                                                    <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-1">Order ID</p>
+                                                    <p className="font-mono text-sm">#{order._id.substring(order._id.length - 8).toUpperCase()}</p>
+                                                </div>
+                                                <div className="text-right">
+                                                    <p className="text-[10px] uppercase tracking-widest text-gray-400 mb-1">Date</p>
+                                                    <p className="font-sans text-sm">{new Date(order.createdAt).toLocaleDateString()}</p>
+                                                </div>
+                                            </div>
+                                            <div className="flex justify-between items-center border-t border-gray-50 pt-4">
+                                                <div className="flex space-x-4 items-center">
+                                                    <span className={`px-3 py-1 text-[10px] uppercase tracking-wider border ${order.isPaid ? 'border-green-200 text-green-800 bg-green-50' : 'border-yellow-200 text-yellow-800 bg-yellow-50'}`}>
+                                                        {order.isPaid ? 'Paid' : 'Pending Payment'}
+                                                    </span>
+                                                    <span className={`px-3 py-1 text-[10px] uppercase tracking-wider border ${order.isDelivered ? 'border-green-200 text-green-800 bg-green-50' : 'border-gray-200 text-gray-500 bg-gray-50'}`}>
+                                                        {order.isDelivered ? 'Delivered' : 'Processing'}
+                                                    </span>
+                                                    {!order.isPaid && (
+                                                        <button
+                                                            onClick={async () => {
+                                                                try {
+                                                                    await api.put(`/orders/${order._id}/pay`, {
+                                                                        id: `PAY_${Date.now()}`,
+                                                                        status: 'COMPLETED',
+                                                                        update_time: new Date().toISOString(),
+                                                                    });
+                                                                    setOrders(prev => prev.map(o => o._id === order._id ? { ...o, isPaid: true, paidAt: new Date() } : o));
+                                                                } catch (err) {
+                                                                    console.error('Payment failed', err);
+                                                                }
+                                                            }}
+                                                            className="px-6 py-2 text-[10px] uppercase tracking-wider bg-black text-white hover:bg-gray-800 transition-all"
+                                                        >
+                                                            Pay Now
+                                                        </button>
+                                                    )}
+                                                </div>
+                                                <p className="font-serif text-lg">₹{order.totalPrice.toLocaleString()}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                         </div>
 
                         <div>
-                            <h2 className="text-xl tracking-widest uppercase text-[#1a1a1a] font-normal mb-6">Account Details</h2>
-                            <div className="font-sans text-sm text-gray-600 leading-relaxed tracking-wide">
-                                <p className="font-medium text-black mb-1">{user.name}</p>
-                                <p className="mb-4">{user.email}</p>
-                                <p className="text-gray-400 italic">No address saved</p>
-                                <button className="mt-4 text-[10px] uppercase tracking-[0.2em] underline decoration-gray-300 hover:text-black hover:decoration-black transition-all">
+                            <h2 className="text-xl tracking-widest uppercase text-[#1a1a1a] font-normal mb-8">Account Details</h2>
+                            <div className="font-sans text-sm text-gray-600 leading-relaxed tracking-wide border border-gray-100 p-6 md:p-8 bg-gray-50">
+                                <p className="font-medium text-black mb-1 font-serif text-lg">{user.name}</p>
+                                <p className="mb-6 text-xs uppercase tracking-wider text-gray-400">{user.email}</p>
+                                <p className="text-gray-400 italic mb-4">No address saved</p>
+                                <button className="text-[10px] uppercase tracking-[0.2em] border-b border-gray-300 pb-1 hover:text-black hover:border-black transition-all">
                                     View Addresses (0)
                                 </button>
                             </div>
@@ -171,7 +234,7 @@ export default function Account() {
     }
 
     return (
-        <div className="min-h-screen bg-white pt-24 pb-12 px-4 md:px-8 font-serif">
+        <div className="min-h-screen bg-secondary pt-24 pb-12 px-6 md:px-8 font-serif">
             <Head>
                 <title>Account | Coquette Threads</title>
             </Head>

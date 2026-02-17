@@ -38,6 +38,8 @@ const uploadRoutes = require('./src/routes/uploadRoutes');
 app.use('/api/products', productRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/orders', require('./src/routes/orderRoutes'));
+app.use('/api/categories', require('./src/routes/categoryRoutes'));
 
 const PORT = process.env.PORT || 5000;
 

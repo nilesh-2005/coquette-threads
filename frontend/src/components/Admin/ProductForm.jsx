@@ -29,7 +29,7 @@ export default function ProductForm({ existingProduct = null }) {
         compareAtPrice: '',
         description: '',
         shortDescription: '',
-        categories: '', // Comma separated for now
+        categories: [], // Array of IDs
         tags: '',
 
         // Images
@@ -55,12 +55,26 @@ export default function ProductForm({ existingProduct = null }) {
         published: false
     });
 
+    const [allCategories, setAllCategories] = useState([]);
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const { data } = await api.get('/categories');
+                setAllCategories(data);
+            } catch (err) {
+                console.error('Failed to fetch categories', err);
+            }
+        };
+        fetchCategories();
+    }, []);
+
     useEffect(() => {
         if (existingProduct) {
             setFormData(prev => ({
                 ...prev,
                 ...existingProduct,
-                categories: existingProduct.categories?.map(c => c.name).join(', ') || '',
+                categories: existingProduct.categories?.map(c => typeof c === 'object' ? c._id : c) || [],
                 tags: existingProduct.tags?.join(', ') || '',
                 embellishments: existingProduct.embellishments?.join(', ') || '',
                 // Ensure array fields exist
@@ -76,6 +90,19 @@ export default function ProductForm({ existingProduct = null }) {
             ...prev,
             [name]: type === 'checkbox' ? checked : value
         }));
+    };
+
+    const handleCategoryToggle = (categoryId) => {
+        setFormData(prev => {
+            const current = [...prev.categories];
+            const index = current.indexOf(categoryId);
+            if (index > -1) {
+                current.splice(index, 1);
+            } else {
+                current.push(categoryId);
+            }
+            return { ...prev, categories: current };
+        });
     };
 
     const handleImageChange = (index, field, value) => {
@@ -143,7 +170,7 @@ export default function ProductForm({ existingProduct = null }) {
             ...formData,
             price: Number(formData.price),
             compareAtPrice: formData.compareAtPrice ? Number(formData.compareAtPrice) : undefined,
-            categories: [], // Handle categories logic elsewhere or keep simplistic
+            categories: formData.categories,
             tags: typeof formData.tags === 'string' ? formData.tags.split(',').map(t => t.trim()).filter(Boolean) : formData.tags,
             embellishments: typeof formData.embellishments === 'string' ? formData.embellishments.split(',').map(t => t.trim()).filter(Boolean) : formData.embellishments,
             images: formData.images.filter(img => img.url),
@@ -225,6 +252,36 @@ export default function ProductForm({ existingProduct = null }) {
                         <div className="col-span-2">
                             <label className="block text-xs font-bold uppercase tracking-widest mb-2 text-gray-500">Short Description</label>
                             <input name="shortDescription" value={formData.shortDescription} onChange={handleChange} className="w-full border-b border-gray-300 py-2 focus:border-black focus:outline-none transition-colors" placeholder="Brief summary for listings" />
+                        </div>
+
+                        <div className="col-span-2">
+                            <label className="block text-xs font-bold uppercase tracking-widest mb-4 text-gray-500">Categories *</label>
+                            <div className="flex flex-wrap gap-4 bg-gray-50 p-6 border border-gray-100">
+                                {allCategories.map(cat => (
+                                    <label key={cat._id} className="flex items-center space-x-2 cursor-pointer group">
+                                        <div
+                                            onClick={() => handleCategoryToggle(cat._id)}
+                                            className={`w-5 h-5 border flex items-center justify-center transition-all ${formData.categories.includes(cat._id)
+                                                    ? 'bg-black border-black'
+                                                    : 'bg-white border-gray-300 group-hover:border-black'
+                                                }`}
+                                        >
+                                            {formData.categories.includes(cat._id) && (
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 text-white" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                                </svg>
+                                            )}
+                                        </div>
+                                        <span className={`text-xs uppercase tracking-widest transition-colors ${formData.categories.includes(cat._id) ? 'text-black font-bold' : 'text-gray-500'
+                                            }`}>
+                                            {cat.name}
+                                        </span>
+                                    </label>
+                                ))}
+                                {allCategories.length === 0 && (
+                                    <p className="text-[10px] text-gray-400 uppercase tracking-widest italic">Loading categories...</p>
+                                )}
+                            </div>
                         </div>
 
                         <div className="col-span-2">
