@@ -58,7 +58,14 @@ export default function AboutPage() {
             <main className="bg-[#faf9f6] min-h-screen pt-32 pb-24">
                 <div className="container mx-auto px-6 max-w-6xl">
                     {/* Header Section */}
-                    <div ref={headerRef} className="text-center mb-24">
+                    <div ref={headerRef} className="text-center mb-16">
+                        <div className="flex justify-center mb-12">
+                            <img
+                                src="/logo.png"
+                                alt="Coquette Threads Logo"
+                                className="h-32 w-auto object-contain"
+                            />
+                        </div>
                         <span className="text-xs tracking-[0.4em] uppercase text-accent mb-6 block">Our Story</span>
                         <h1 className="text-5xl md:text-7xl font-serif mb-8 tracking-tight text-gray-900 italic">
                             Romance, Tailored.
