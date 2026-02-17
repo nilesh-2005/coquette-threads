@@ -6,6 +6,8 @@ const path = require('path');
 
 dotenv.config({ path: path.join(__dirname, '../.env') }); // Load from root or local .env
 
+mongoose.set('bufferCommands', false);
+
 const app = express();
 
 // Middleware
