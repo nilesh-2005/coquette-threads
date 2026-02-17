@@ -11,10 +11,10 @@ export default function CartDrawer() {
     const overlayRef = useRef(null);
     const drawerRef = useRef(null);
 
-    // Initial state
+    // Initial state setup is now handled by CSS to prevent flicker
     useEffect(() => {
-        gsap.set(overlayRef.current, { opacity: 0, display: 'none' });
-        gsap.set(drawerRef.current, { xPercent: 100 });
+        // We only need to ensure GSAP is aware of the state if we were doing complex tracking,
+        // but for a simple xPercent/opacity, the CSS initial state is enough.
     }, []);
 
     // Animate open/close
@@ -35,14 +35,14 @@ export default function CartDrawer() {
             {/* Overlay */}
             <div
                 ref={overlayRef}
-                className="fixed inset-0 bg-black/50 backdrop-blur-sm"
+                className="fixed inset-0 bg-black/50 backdrop-blur-sm hidden opacity-0"
                 onClick={() => setIsCartOpen(false)}
             />
 
             {/* Drawer */}
             <div
                 ref={drawerRef}
-                className="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl flex flex-col z-[101]"
+                className="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl flex flex-col z-[101] translate-x-full"
             >
                 {/* Header */}
                 <div className="p-6 border-b flex justify-between items-center">
