@@ -68,6 +68,7 @@ app.use('/api/health', (req, res) => res.json({ status: 'healthy', timestamp: ne
 app.use('/api/upload', uploadRoutes);
 app.use('/api/orders', require('./src/routes/orderRoutes'));
 app.use('/api/categories', require('./src/routes/categoryRoutes'));
+app.use('/api/newsletter', require('./src/routes/newsletterRoutes'));
 
 // Error Middleware
 app.use(notFound);
