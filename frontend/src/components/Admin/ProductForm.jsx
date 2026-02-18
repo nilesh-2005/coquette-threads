@@ -190,7 +190,7 @@ export default function ProductForm({ existingProduct = null }) {
             console.error('Save error details:', error.response?.data || error.message);
             const serverMsg = error.response?.data?.message || '';
             const details = error.response?.data?.errors ? Object.values(error.response.data.errors).map(e => e.message).join(', ') : '';
-            alert(`Failed to save product: ${serverMsg}. ${details}`);
+            alert(`Unable to save product. Server responded: ${serverMsg}. Details: ${details}`);
         } finally {
             setLoading(false);
         }
@@ -262,8 +262,8 @@ export default function ProductForm({ existingProduct = null }) {
                                         <div
                                             onClick={() => handleCategoryToggle(cat._id)}
                                             className={`w-5 h-5 border flex items-center justify-center transition-all ${formData.categories.includes(cat._id)
-                                                    ? 'bg-black border-black'
-                                                    : 'bg-white border-gray-300 group-hover:border-black'
+                                                ? 'bg-black border-black'
+                                                : 'bg-white border-gray-300 group-hover:border-black'
                                                 }`}
                                         >
                                             {formData.categories.includes(cat._id) && (

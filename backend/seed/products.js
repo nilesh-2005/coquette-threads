@@ -374,6 +374,81 @@ const products = [
         ],
         isMadeToOrder: true,
         published: true
+    },
+    {
+        title: "Ivory Floral Empire Waist Gown",
+        slug: "ivory-floral-empire-waist-gown",
+        sku: "CT-1010",
+        shortDescription: "Delicate ivory empire waist gown with soft floral embroidery and flowing silhouette.",
+        description: "<p>Embrace a touch of vintage romance with this ivory empire waist gown. The bodice features soft, intricate floral embroidery that gently transitions into a flowing, lightweight skirt. Perfect for garden parties or an ethereal evening look, this gown offers both comfort and timeless elegance.</p>",
+        price: 21500,
+        currency: "INR",
+        categories: ["new-arrivals", "gowns"],
+        tags: ["ivory", "floral", "empire-waist", "embroidery", "romantic"],
+        images: [{ url: "/assets/gowns/ivory-floral-empire-waist-gown/ivory-floral-empire-waist-gown-wh.png", alt: "Ivory Floral Empire Waist Gown", type: "hero" }],
+        fabric: "Soft Tulle & embroidery",
+        silhouette: "Empire Line",
+        neckline: "Square Neck",
+        sleeve: "Cap Sleeve",
+        sizes: ["XS", "S", "M", "L"],
+        variants: [
+            { sku: "CT-1010-XS", size: "XS", inventoryQty: 3 },
+            { sku: "CT-1010-S", size: "S", inventoryQty: 5 },
+            { sku: "CT-1010-M", size: "M", inventoryQty: 4 },
+            { sku: "CT-1010-L", size: "L", inventoryQty: 2 }
+        ],
+        isMadeToOrder: true,
+        published: true
+    },
+    {
+        title: "Ivory Royal Lace Ballroom Gown",
+        slug: "ivory-royal-lace-ballroom-gown",
+        sku: "CT-1011",
+        shortDescription: "Majestic ivory ballroom gown featuring all-over royal lace detailing and a voluminous skirt.",
+        description: "<p>Make a grand entrance in this majestic ivory ballroom gown. Covered in exquisite royal lace, the fitted bodice and voluminous skirt create a stunning silhouette fit for a queen. The intricate lace patterns add depth and texture, ensuring you look breathtaking from every angle.</p>",
+        price: 32000,
+        currency: "INR",
+        categories: ["new-arrivals", "ball-gowns"],
+        tags: ["ivory", "lace", "ball-gown", "royal", "majestic"],
+        images: [{ url: "/assets/gowns/ivory-royal-lace-ballroom-gown/ivory-royal-lace-ballroom-gown-wh.png", alt: "Ivory Royal Lace Ballroom Gown", type: "hero" }],
+        fabric: "Royal Lace & Satin",
+        silhouette: "Ball Gown",
+        neckline: "Sweetheart",
+        sleeve: "Off-shoulder",
+        sizes: ["XS", "S", "M", "L"],
+        variants: [
+            { sku: "CT-1011-XS", size: "XS", inventoryQty: 2 },
+            { sku: "CT-1011-S", size: "S", inventoryQty: 4 },
+            { sku: "CT-1011-M", size: "M", inventoryQty: 4 },
+            { sku: "CT-1011-L", size: "L", inventoryQty: 2 }
+        ],
+        isMadeToOrder: true,
+        published: true
+    },
+    {
+        title: "Royal Gold Satin Ballroom Evening Gown",
+        slug: "royal-gold-satin-ballroom-evening-gown",
+        sku: "CT-1012",
+        shortDescription: "Opulent royal gold satin evening gown with a structured bodice and sweeping ballroom skirt.",
+        description: "<p>Radiate opulence in this royal gold satin evening gown. The lustrous fabric drapes beautifully, creating a structure bodice that flows into a sweeping ballroom skirt. Designed for the most formal of occasions, this gown combines classic grandeur with a rich, golden hue that demands attention.</p>",
+        price: 28500,
+        currency: "INR",
+        categories: ["new-arrivals", "ball-gowns"],
+        tags: ["gold", "satin", "ballroom", "evening", "opulent"],
+        images: [{ url: "/assets/gowns/royal-gold-satin-ballroom-evening-gown.jpg/royal-gold-satin-ballroom-evening-gown-wh.png", alt: "Royal Gold Satin Ballroom Evening Gown", type: "hero" }],
+        fabric: "Premium Satin",
+        silhouette: "Ball Gown",
+        neckline: "V-Neck",
+        sleeve: "Sleeveless",
+        sizes: ["XS", "S", "M", "L"],
+        variants: [
+            { sku: "CT-1012-XS", size: "XS", inventoryQty: 3 },
+            { sku: "CT-1012-S", size: "S", inventoryQty: 5 },
+            { sku: "CT-1012-M", size: "M", inventoryQty: 4 },
+            { sku: "CT-1012-L", size: "L", inventoryQty: 2 }
+        ],
+        isMadeToOrder: true,
+        published: true
     }
 ];
 

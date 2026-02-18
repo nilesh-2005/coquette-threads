@@ -146,7 +146,7 @@ export default function Account() {
                         <div className="flex space-x-4">
                             <button
                                 onClick={handleLogout}
-                                className="bg-transparent border border-gray-200 text-gray-400 px-8 py-3 uppercase text-[10px] tracking-[0.2em] hover:border-black hover:text-black transition-all"
+                                className="bg-transparent border border-black text-black px-8 py-3 uppercase text-[10px] tracking-[0.2em] hover:bg-black hover:text-white transition-all"
                             >
                                 Log Out
                             </button>
@@ -180,7 +180,28 @@ export default function Account() {
                                                     <p className="font-sans text-sm">{new Date(order.createdAt).toLocaleDateString()}</p>
                                                 </div>
                                             </div>
-                                            <div className="flex justify-between items-center border-t border-gray-50 pt-4">
+                                            <div className="border-t border-gray-50 pt-4 mb-4">
+                                                {order.orderItems.map((item, index) => (
+                                                    <div key={index} className="flex items-center py-2">
+                                                        <div className="w-16 h-16 flex-shrink-0 overflow-hidden rounded-sm border border-gray-100">
+                                                            <img
+                                                                src={item.image}
+                                                                alt={item.title}
+                                                                className="w-full h-full object-cover object-center"
+                                                            />
+                                                        </div>
+                                                        <div className="ml-4 flex-1">
+                                                            <div className="flex justify-between font-medium text-gray-900 text-sm">
+                                                                <h3>{item.title}</h3>
+                                                                <p className="ml-4">₹{item.price.toLocaleString()}</p>
+                                                            </div>
+                                                            <p className="mt-1 text-xs text-gray-500">{item.size && `Size: ${item.size}`}</p>
+                                                            <p className="mt-1 text-xs text-gray-500">Qty: {item.qty}</p>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                            <div className="flex justify-between items-center border-t border-gray-100 pt-4">
                                                 <div className="flex space-x-4 items-center">
                                                     <span className={`px-3 py-1 text-[10px] uppercase tracking-wider border ${order.isPaid ? 'border-green-200 text-green-800 bg-green-50' : 'border-yellow-200 text-yellow-800 bg-yellow-50'}`}>
                                                         {order.isPaid ? 'Paid' : 'Pending Payment'}

@@ -13,12 +13,6 @@ console.log('--- Server Starting ---');
 console.log('PORT:', process.env.PORT || 5000);
 console.log('NODE_ENV:', process.env.NODE_ENV);
 console.log('MONGO_URI exists:', !!process.env.MONGO_URI);
-if (process.env.MONGO_URI) {
-  const maskedUri = process.env.MONGO_URI.replace(/:([^@]+)@/, ':****@');
-  console.log('MONGO_URI (masked):', maskedUri);
-} else {
-  console.warn('WARNING: MONGO_URI is not defined! Using local default.');
-}
 
 const app = express();
 

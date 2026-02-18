@@ -15,6 +15,8 @@ export default function Collection() {
     const [priceFilter, setPriceFilter] = useState('all');
     const [showSort, setShowSort] = useState(false);
     const [showFilter, setShowFilter] = useState(false);
+    const [page, setPage] = useState(1);
+    const [pages, setPages] = useState(1);
     const headerRef = useRef(null);
     const sortRef = useRef(null);
     const filterRef = useRef(null);
@@ -49,13 +51,19 @@ export default function Collection() {
         }
     }, [sortedProducts]);
 
+    // Reset page when category changes
+    useEffect(() => {
+        setPage(1);
+    }, [category]);
+
     useEffect(() => {
         if (!category) return;
         const fetchProducts = async () => {
             setLoading(true);
             try {
-                const { data } = await api.get(`/products?category=${category}`);
+                const { data } = await api.get(`/products?category=${category}&pageNumber=${page}`);
                 setProducts(data.products);
+                setPages(data.pages);
             } catch (error) {
                 console.error('Failed to fetch collection', error);
             } finally {
@@ -64,7 +72,7 @@ export default function Collection() {
         };
 
         fetchProducts();
-    }, [category]);
+    }, [category, page]);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -110,7 +118,7 @@ export default function Collection() {
                     {/* Toolbar */}
                     <div className="flex flex-col md:flex-row justify-between items-center mb-12 py-4 border-y border-gray-100">
                         <div className="text-xs uppercase tracking-widest text-gray-400 mb-4 md:mb-0 font-sans">
-                            {sortedProducts.length} Products Found
+                            {products.length > 0 ? `${(page - 1) * 12 + 1}-${Math.min(page * 12, (page - 1) * 12 + products.length)} of many` : '0'} Products
                         </div>
                         <div className="flex space-x-8 text-xs uppercase tracking-widest text-gray-500 font-sans relative">
                             {/* Filter Dropdown */}
@@ -187,21 +195,50 @@ export default function Collection() {
                             <div className="animate-spin h-10 w-10 border-b-2 border-accent rounded-full"></div>
                         </div>
                     ) : (
-                        <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-12">
-                            {sortedProducts.length > 0 ? (
-                                sortedProducts.map(p => <ProductCard key={p._id} product={p} />)
-                            ) : (
-                                <div className="col-span-full text-center py-20 bg-white/50 rounded-lg">
-                                    <p className="text-gray-400 font-serif italic text-xl">No items found in this collection.</p>
+                        <>
+                            <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-12 mb-16">
+                                {sortedProducts.length > 0 ? (
+                                    sortedProducts.map(p => <ProductCard key={p._id} product={p} />)
+                                ) : (
+                                    <div className="col-span-full text-center py-20 bg-white/50 rounded-lg">
+                                        <p className="text-gray-400 font-serif italic text-xl">No items found in this collection.</p>
+                                        <button
+                                            onClick={() => router.push('/')}
+                                            className="mt-6 text-xs tracking-widest uppercase border-b border-black pb-1 hover:text-accent hover:border-accent transition-all"
+                                        >
+                                            Return Home
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Pagination Controls */}
+                            {pages > 1 && (
+                                <div className="flex justify-center items-center space-x-6 border-t border-gray-100 pt-12">
                                     <button
-                                        onClick={() => router.push('/')}
-                                        className="mt-6 text-xs tracking-widest uppercase border-b border-black pb-1 hover:text-accent hover:border-accent transition-all"
+                                        onClick={() => {
+                                            setPage(p => Math.max(1, p - 1));
+                                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                                        }}
+                                        disabled={page === 1}
+                                        className={`px-6 py-3 text-xs uppercase tracking-widest border border-gray-200 transition-all ${page === 1 ? 'text-gray-300 cursor-not-allowed bg-gray-50' : 'text-black hover:border-black hover:bg-white'}`}
                                     >
-                                        Return Home
+                                        Previous
+                                    </button>
+                                    <span className="text-xs font-serif text-gray-500">Page {page} of {pages}</span>
+                                    <button
+                                        onClick={() => {
+                                            setPage(p => Math.min(pages, p + 1));
+                                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                                        }}
+                                        disabled={page === pages}
+                                        className={`px-6 py-3 text-xs uppercase tracking-widest border border-gray-200 transition-all ${page === pages ? 'text-gray-300 cursor-not-allowed bg-gray-50' : 'text-black hover:border-black hover:bg-white'}`}
+                                    >
+                                        Next
                                     </button>
                                 </div>
                             )}
-                        </div>
+                        </>
                     )}
                 </div>
             </div>

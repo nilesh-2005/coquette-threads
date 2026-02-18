@@ -2,7 +2,6 @@ import { useRef, useEffect } from 'react';
 import { gsap } from '@/lib/gsap';
 import { useCart } from '@/context/CartContext';
 import { XMarkIcon, TrashIcon } from '@heroicons/react/24/outline';
-import Image from 'next/image';
 import Link from 'next/link';
 import { resolveImageUrl } from '@/lib/utils';
 
@@ -10,21 +9,30 @@ export default function CartDrawer() {
     const { cartItems, isCartOpen, setIsCartOpen, removeFromCart } = useCart();
     const overlayRef = useRef(null);
     const drawerRef = useRef(null);
+    const hasInitialized = useRef(false);
 
-    // Initial state setup is now handled by CSS to prevent flicker
+    // Animate open/close — GSAP is the sole controller of transforms
     useEffect(() => {
-        // We only need to ensure GSAP is aware of the state if we were doing complex tracking,
-        // but for a simple xPercent/opacity, the CSS initial state is enough.
-    }, []);
+        const overlay = overlayRef.current;
+        const drawer = drawerRef.current;
+        if (!overlay || !drawer) return;
 
-    // Animate open/close
-    useEffect(() => {
+        if (!hasInitialized.current) {
+            // First mount: set initial positions without animation
+            gsap.set(drawer, { xPercent: 100, visibility: 'visible' });
+            gsap.set(overlay, { autoAlpha: 0 });
+            hasInitialized.current = true;
+            if (!isCartOpen) return; // Don't animate close on first mount
+        }
+
         if (isCartOpen) {
-            gsap.to(overlayRef.current, { display: 'block', opacity: 1, duration: 0.3, ease: 'power2.out' });
-            gsap.to(drawerRef.current, { xPercent: 0, duration: 0.5, ease: 'expo.out' });
+            // Open
+            gsap.to(overlay, { autoAlpha: 1, duration: 0.3, ease: 'power2.out' });
+            gsap.to(drawer, { xPercent: 0, duration: 0.5, ease: 'expo.out' });
         } else {
-            gsap.to(overlayRef.current, { opacity: 0, duration: 0.3, ease: 'power2.in', onComplete: () => gsap.set(overlayRef.current, { display: 'none' }) });
-            gsap.to(drawerRef.current, { xPercent: 100, duration: 0.5, ease: 'expo.in' });
+            // Close
+            gsap.to(overlay, { autoAlpha: 0, duration: 0.3, ease: 'power2.in' });
+            gsap.to(drawer, { xPercent: 100, duration: 0.5, ease: 'expo.in' });
         }
     }, [isCartOpen]);
 
@@ -35,14 +43,16 @@ export default function CartDrawer() {
             {/* Overlay */}
             <div
                 ref={overlayRef}
-                className="fixed inset-0 bg-black/50 backdrop-blur-sm hidden opacity-0"
+                className="fixed inset-0 bg-black/50 backdrop-blur-sm"
+                style={{ visibility: 'hidden' }}
                 onClick={() => setIsCartOpen(false)}
             />
 
             {/* Drawer */}
             <div
                 ref={drawerRef}
-                className="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl flex flex-col z-[101] translate-x-full"
+                className="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl flex flex-col z-[101]"
+                style={{ visibility: 'hidden' }}
             >
                 {/* Header */}
                 <div className="p-6 border-b flex justify-between items-center">

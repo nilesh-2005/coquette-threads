@@ -122,7 +122,7 @@ For this scale, a **Monolithic** architecture is more efficient. It simplifies d
 **A:** E-commerce product catalogs often require flexible schemas (e.g., a shirt has size/color, a laptop has RAM/CPU). MongoDB allows us to store these varied attributes without complex JOINs or rigid table structures, making iteration faster.
 
 ### Q3: How do you handle authentication securely?
-**A:** We use **JWT (JSON Web Token)**. When a user logs in, the server signs a token with a `JWT_SECRET`. The client stores this token (in localStorage or HTTP-only cookie). For every protected request, the token is sent in the `Authorization` header. The server verifies the signature before granting access. Passwords are never stored in plain text; they are hashed using `bcryptjs`.
+**A:** We use **JWT (JSON Web Token)**. When a user logs in, the server signs a token with a `JWT_SECRET`. The client stores this token in `localStorage`. For every protected request, the token is sent in the `Authorization` header. The server verifies the signature before granting access. Passwords are never stored in plain text; they are hashed using `bcryptjs`.
 
 ### Q4: How would you scale this application for millions of users?
 **A:**

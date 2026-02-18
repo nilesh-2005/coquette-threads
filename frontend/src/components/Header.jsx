@@ -32,23 +32,16 @@ export default function Header() {
             { scale: 0.8, opacity: 0 },
             { scale: 1, opacity: 1, duration: 1, ease: 'power3.out' }
         );
+    }, []);
 
-        // Header Hide/Show on Scroll
-        ScrollTrigger.create({
-            start: 'top top',
-            onUpdate: (self) => {
-                // Removed Header Hide/Show on Scroll logic as requested
-                // gsap.to(header, { yPercent: -100, duration: 0.3, ease: 'power3.out' });
+    // Scroll Handler
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 50);
+        };
 
-
-                // Toggle background style based on scroll position
-                if (self.scroll() > 50) {
-                    setIsScrolled(true);
-                } else {
-                    setIsScrolled(false);
-                }
-            }
-        });
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
     // Mobile Menu Animation

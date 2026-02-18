@@ -173,7 +173,7 @@ export default function ProductPage() {
                             </button>
 
                             <div className="mt-4 text-center">
-                                <p className="text-xs text-gray-500">Free shipping on all orders over ₹20,000</p>
+                                <p className="text-xs text-gray-500">Free shipping on all orders over ₹5,000</p>
                             </div>
                         </div>
                     </div>

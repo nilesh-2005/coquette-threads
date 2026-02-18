@@ -13,7 +13,7 @@ export default function Cart() {
 
             <div className="pt-32 pb-16 bg-secondary min-h-screen">
                 <div className="container mx-auto px-6 max-w-4xl">
-                    <h1 className="text-3xl font-serif mb-8 text-center border-b pb-4">Sopping Bag</h1>
+                    <h1 className="text-3xl font-serif mb-8 text-center border-b pb-4">Shopping Bag</h1>
 
                     {cartItems.length === 0 ? (
                         <div className="text-center py-12">

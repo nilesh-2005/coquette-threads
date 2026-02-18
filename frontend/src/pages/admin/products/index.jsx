@@ -11,12 +11,16 @@ import AdminLayout from '@/components/Admin/AdminLayout';
 function AdminProducts() {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [page, setPage] = useState(1);
+    const [pages, setPages] = useState(1);
 
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const { data } = await api.get('/products?pageNumber=1&keyword=');
+                setLoading(true);
+                const { data } = await api.get(`/products?pageNumber=${page}&keyword=`);
                 setProducts(data.products || []);
+                setPages(data.pages);
             } catch (error) {
                 console.error('Frontend fetch error:', error);
             } finally {
@@ -24,7 +28,7 @@ function AdminProducts() {
             }
         };
         fetchProducts();
-    }, []);
+    }, [page]);
 
     const scope = useGsap(() => {
         if (products.length > 0) {
@@ -42,7 +46,7 @@ function AdminProducts() {
                 await api.delete(`/products/${id}`);
                 setProducts(products.filter(p => p._id !== id));
             } catch (error) {
-                alert('Failed to delete product');
+                alert(`Failed to delete product. Server responded: ${error.response?.data?.message || error.message}`);
             }
         }
     };
@@ -57,7 +61,7 @@ function AdminProducts() {
                     </Link>
                 </div>
 
-                <div ref={scope} className="bg-white border border-gray-200 overflow-x-auto">
+                <div ref={scope} className="bg-white border border-gray-200 overflow-x-auto mb-8">
                     <table className="w-full text-left">
                         <thead className="bg-white text-xs uppercase text-gray-400 tracking-widest border-b border-gray-100">
                             <tr>
@@ -96,6 +100,27 @@ function AdminProducts() {
                         </tbody>
                     </table>
                 </div>
+
+                {/* Pagination Controls */}
+                {pages > 1 && (
+                    <div className="flex justify-center items-center space-x-4">
+                        <button
+                            onClick={() => setPage(page - 1)}
+                            disabled={page === 1}
+                            className={`px-4 py-2 text-xs uppercase tracking-widest border border-gray-200 transition-all ${page === 1 ? 'text-gray-300 cursor-not-allowed' : 'text-black hover:border-black'}`}
+                        >
+                            Previous
+                        </button>
+                        <span className="text-xs font-serif text-gray-500">Page {page} of {pages}</span>
+                        <button
+                            onClick={() => setPage(page + 1)}
+                            disabled={page === pages}
+                            className={`px-4 py-2 text-xs uppercase tracking-widest border border-gray-200 transition-all ${page === pages ? 'text-gray-300 cursor-not-allowed' : 'text-black hover:border-black'}`}
+                        >
+                            Next
+                        </button>
+                    </div>
+                )}
             </div>
         </AdminLayout>
     );

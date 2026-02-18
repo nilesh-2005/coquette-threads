@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import { resolveImageUrl } from '@/lib/utils';
 
 export default function ProductCard({ product }) {

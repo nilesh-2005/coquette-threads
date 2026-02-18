@@ -41,7 +41,6 @@ const getProducts = async (req, res) => {
         if (!isAdmin) {
             filter.published = true;
         }
-        console.log('Backend GET Products Filter:', JSON.stringify(filter), 'isAdmin:', isAdmin);
 
         const count = await Product.countDocuments(filter);
         const products = await Product.find(filter)
@@ -94,13 +93,17 @@ const getProductBySlug = async (req, res) => {
 // @route   DELETE /api/products/:id
 // @access  Private/Admin
 const deleteProduct = async (req, res) => {
-    const product = await Product.findById(req.params.id);
+    try {
+        const product = await Product.findById(req.params.id);
 
-    if (product) {
-        await product.deleteOne();
-        res.json({ message: 'Product removed' });
-    } else {
-        res.status(404).json({ message: 'Product not found' });
+        if (product) {
+            await product.deleteOne();
+            res.json({ message: 'Product removed' });
+        } else {
+            res.status(404).json({ message: 'Product not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
 };
 
@@ -109,7 +112,6 @@ const deleteProduct = async (req, res) => {
 // @access  Private/Admin
 const createProduct = async (req, res) => {
     try {
-        console.log('Incoming product data:', req.body);
         const { title, sku, price, description, images, variants, sizes, colors, fabric, silhouette, neckline, sleeve, embellishments, careInstructions, productionLeadTime, shippingEstimate, returnPolicy, isMadeToOrder, isLimitedEdition, published, categories } = req.body;
 
         if (!title) {
@@ -147,7 +149,6 @@ const createProduct = async (req, res) => {
         });
 
         const createdProduct = await product.save();
-        console.log('Product created successfully:', createdProduct._id);
         res.status(201).json(createdProduct);
     } catch (error) {
         console.error('Create product error:', error);

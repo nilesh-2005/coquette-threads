@@ -4,6 +4,18 @@ const multer = require('multer');
 const router = express.Router();
 const { protect, admin } = require('../middlewares/authMiddleware');
 
+const fs = require('fs');
+
+if (process.env.NODE_ENV === 'production') {
+    console.warn('WARNING: Using local file storage in PRODUCTION environment. Uploads may not persist across deployments.');
+}
+
+// Ensure upload directory exists
+const uploadDir = 'uploads/';
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+}
+
 const storage = multer.diskStorage({
     destination(req, file, cb) {
         cb(null, 'uploads/');
